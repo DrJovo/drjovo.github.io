@@ -1,2 +1,2 @@
-# DrJovo.github.io
-My portfolio
+# drjovo.github.io
+A simple website to host my portfolio
