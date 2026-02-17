@@ -1,0 +1,27 @@
+:root {
+    --primary_bg: #292D3E;
+    --primary_text: #E4E6F2;
+}
+
+@font-face {
+  font-family: 'kayak'; /* I'm not sure if this one works very well */
+  src: url('fonts/KayakSansRegular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'kayak-light'; /* Works well for most text */
+  src: url('fonts/KayakSansLight.otf') format('opentype');
+}
+
+
+body {
+    background-color: var(--primary_bg);
+    color: var(--primary_text);
+    font-family: 'kayak-light', sans-serif, monospace;
+    letter-spacing: 2px;
+}
+
+.big {
+    font-family: Verdana, Tahoma, sans-serif, monospace;
+    letter-spacing: 1px;
+}
