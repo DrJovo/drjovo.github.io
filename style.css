@@ -1,8 +1,89 @@
-:root {
-    --primary_bg: #292D3E;
-    --primary_text: #E4E6F2;
+/*  -- The great reset -- */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+  margin-block-end: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4 {
+  text-wrap: balance;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* Ensure everything stretches from end to end of the browser window */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+
+
+/* -- Styling -- */
+
+/* Universal variables */
+:root {
+    --primary_bg: #292D3E;
+    --secondary_bg: #242838;
+    --highlight: #212432;
+    --primary_text: #E4E6F2;
+    --secondary_text: #757E88;
+}
+
+/* Define fonts */
 @font-face {
   font-family: 'kayak'; /* I'm not sure if this one works very well */
   src: url('fonts/KayakSansRegular.otf') format('opentype');
@@ -13,7 +94,7 @@
   src: url('fonts/KayakSansLight.otf') format('opentype');
 }
 
-
+/* Basic body styling */
 body {
     background-color: var(--primary_bg);
     color: var(--primary_text);
@@ -21,7 +102,85 @@ body {
     letter-spacing: 2px;
 }
 
-.big {
-    font-family: Verdana, Tahoma, sans-serif, monospace;
-    letter-spacing: 1px;
+/* Overarching container */
+.container {
+  display: flex;
+  height: 100%;
+  min-height: 100vh;
+}
+
+/* The sidebar... pretty self-explanatory */
+.sidebar {
+  width: 25%;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 20px;
+  text-align: justify;
+  background-color: var(--secondary_bg);
+}
+
+/* The div containing all the category-related elements */
+.categories_list {
+  text-align: left;
+  padding-left: 15px;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+/* The parent category paragraph element */
+.category_parent {
+  color: var(--secondary_text);
+  font-size: 20px;
+  width: fit-content;
+  transition: color 0.3s;
+}
+
+.category_parent:hover{
+  color: var(--primary_text);
+  cursor: pointer
+}
+
+#parent_active {
+  color: var(--primary_text);
+}
+
+/* A div that contains all the children paragraph elements nested under the parent */
+.category_children {
+  padding-top: 0px;
+  padding-left: 1em;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.category_children.active {
+  max-height: 12em;
+}
+
+/* The actual child paragraph element */
+.category_item {
+  color: var(--secondary_text);
+  font-size: 15px;
+  width: fit-content;
+  transition: color 0.3s;
+}
+
+.category_item:hover{
+  color: var(--primary_text);
+  cursor: pointer
+}
+
+#item_active {
+  color: var(--primary_text);
+}
+
+/* For large titles and headers */ 
+.center_title {
+  text-align: center;
+  font-family: Verdana, Tahoma, sans-serif, monospace;
+  letter-spacing: 1px;
 }
