@@ -1,9 +1,7 @@
 // -- FUNCTIONS -- //
 function openMenu() {
     const sidebar = document.getElementById("sidebar");
-    const main = document.getElementById("main");
     sidebar.classList.toggle("open");
-    main.classList.toggle("shift");
 }
 
 // Every time a category is clicked, it's children are revealed/hidden
