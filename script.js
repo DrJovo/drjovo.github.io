@@ -1,4 +1,12 @@
-/* Every time a category is clicked, it's children are revealed/hidden */
+// -- FUNCTIONS -- //
+function openMenu() {
+    const sidebar = document.getElementById("sidebar");
+    const main = document.getElementById("main");
+    sidebar.classList.toggle("open");
+    main.classList.toggle("shift");
+}
+
+// Every time a category is clicked, it's children are revealed/hidden
 document.querySelectorAll(".category_parent").forEach(parent => {
     parent.addEventListener("click", () => {
         /* Disable old active parent */
@@ -12,7 +20,7 @@ document.querySelectorAll(".category_parent").forEach(parent => {
 
         };
 
-        /* Enable/Disable children items */
+        // Enable/Disable children items
         const siblings = parent.nextElementSibling;
         siblings.classList.toggle("active");
         if (siblings.classList.contains("active")) {
@@ -24,10 +32,10 @@ document.querySelectorAll(".category_parent").forEach(parent => {
     });
 });
 
-/* Every time an item is clicked, its set to active */
+// Every time an item is clicked, its set to active
 document.querySelectorAll(".category_item").forEach(item => {
     item.addEventListener("click", () => {
-        /* Disable old active item */
+        // Disable old active item
         try {
             const old_active = document.getElementById("item_active");
             old_active.removeAttribute("id");
@@ -35,7 +43,7 @@ document.querySelectorAll(".category_item").forEach(item => {
 
         };
 
-        /* Set to active */
+        // Set to active
         item.id = "item_active";
     });
 });
