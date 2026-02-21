@@ -119,6 +119,7 @@ body {
 
 /* The sidebar... pretty self-explanatory */
 .sidebar {
+  position: relative;
   width: 25vw;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -128,11 +129,42 @@ body {
   border-right-style: solid;
   border-right-width: 1rem;
   border-right-color: var(--highlight);
+  z-index: 1;
 }
 
 /* The menu button... duh */
 .menu_button {
   display: none;
+}
+
+/* The cowboy hat */
+.howdy_wrapper {
+  position: relative;
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.cowboy_hat {
+  position: absolute;
+  top: -1.55rem;        /* adjust later */
+  left: 1.75%;          /* start at right edge of text */
+  transform: translateX(-1.2rem) rotate(-10deg);
+  width: 3.5rem;
+  height: 3.5rem;
+  transition: transform 0.3s ease;
+}
+
+.cowboy_hat.top {
+  z-index: 3;
+}
+
+.cowboy_hat.bottom {
+  z-index: -1;
+}
+
+.howdy_wrapper:hover .cowboy_hat {
+  transform: translateX(-1.4rem) translateY(-0.1rem) rotate(-20deg);
 }
 
 /* The div containing all the category-related elements */
@@ -199,6 +231,7 @@ body {
   text-align: center;
   font-family: Verdana, Tahoma, sans-serif, monospace;
   letter-spacing: 1px;
+  z-index: 1;
 }
 
 /* Phone screen overrides */
