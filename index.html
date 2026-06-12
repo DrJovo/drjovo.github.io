@@ -1,51 +1,461 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>DrJovo's Portfolio</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="cowboy_favicon.ico" type="image/x-icon">
-  </head>
-  <body>
-    <main>
-      <div class="container">
-        <div class="sidebar" id="sidebar">
-          <span class="howdy_wrapper">
-            <img src="cowboy_hat_top.PNG" alt="Yeehaw" class="cowboy_hat top">
-            <img src="cowboy_hat_bottom.PNG" alt="Yeehaw" class="cowboy_hat bottom">
-            <h1 class="center_title" id="howdy_text">Howdy!</h1>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jonathan Kleven — Computer Engineering · CCNA · AWS</title>
+  <meta name="description" content="Portfolio of Jonathan Kleven: CCNA and AWS Cloud Practitioner certified Computer Engineering student headed to Montana State University. Hands-on networking labs, cloud work, and programming — all documented.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Opt in to scroll animations only when the browser can run them —
+    // content is never hidden if JS is off or unsupported.
+    if ("IntersectionObserver" in window) document.documentElement.classList.add("anim");
+  </script>
+</head>
+<body>
+
+  <!-- Reusable artwork -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- Cowboy hat (recreated from the "Howdy!" mark) -->
+      <symbol id="hat" viewBox="0 0 142 72">
+        <path d="M10 52 C4 40 18 36 32 39 L46 42 L96 42 L110 39 C124 36 138 40 132 52 C118 62 94 65 71 65 C48 65 24 62 10 52 Z" fill="#9C5A2E"/>
+        <path d="M44 46 C42 22 50 9 64 8 C66 8 69 12 71 16 C73 12 76 8 78 8 C92 9 100 22 98 46 Z" fill="#8A4B26"/>
+        <path d="M43 37 L99 37 L98 47 L44 47 Z" fill="#46291A"/>
+        <path d="M10 52 C24 60 48 63 71 63 C94 63 118 60 132 52" fill="none" stroke="#7A4220" stroke-width="2" opacity="0.5"/>
+      </symbol>
+
+      <!-- Mountain ridgeline divider -->
+      <symbol id="ridge-path" viewBox="0 0 1440 64" preserveAspectRatio="none">
+        <path d="M0 64 L0 44 L96 22 L176 40 L268 10 L352 34 L448 18 L548 42 L648 14 L744 38 L828 24 L928 44 L1016 16 L1112 38 L1208 26 L1300 44 L1378 32 L1440 40 L1440 64 Z" fill="currentColor"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- =============================== NAV =============================== -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <svg class="brand-hat" aria-hidden="true"><use href="#hat" xlink:href="#hat"/></svg>
+        Jonathan Kleven
+      </a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#reports">Lab Reports</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a class="nav-cta" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- =============================== HERO =============================== -->
+    <section class="hero">
+      <svg class="hero-topo" viewBox="0 0 640 520" fill="none" aria-hidden="true">
+        <g stroke="#C2562B" stroke-width="1.4" opacity="0.35">
+          <path d="M320 70 C420 60 510 120 520 210 C530 305 460 380 350 390 C240 400 150 340 145 245 C140 150 220 80 320 70 Z"/>
+          <path d="M320 110 C400 102 472 150 480 222 C488 298 432 356 345 364 C258 372 186 324 182 248 C178 172 240 118 320 110 Z"/>
+          <path d="M322 150 C384 144 438 180 444 234 C450 292 408 334 342 340 C276 346 222 310 219 252 C216 194 260 156 322 150 Z"/>
+          <path d="M324 190 C366 186 402 210 406 246 C410 286 382 314 338 318 C294 322 258 298 256 258 C254 218 282 194 324 190 Z"/>
+        </g>
+        <g stroke="#2F7DBF" stroke-width="1.4" opacity="0.3">
+          <path d="M120 420 C180 400 260 420 300 460 C340 500 320 540 250 545 C180 550 90 520 80 480 C72 450 90 430 120 420 Z"/>
+          <path d="M150 440 C195 426 250 442 278 470 C306 498 292 524 240 528 C188 532 124 510 118 482 C113 460 125 448 150 440 Z"/>
+        </g>
+      </svg>
+
+      <div class="container hero-grid">
+        <div>
+          <p class="hero-eyebrow">Bellevue, WA &nbsp;&#8594;&nbsp; Bozeman, MT</p>
+
+          <span class="howdy">
+            <svg class="hat" aria-hidden="true"><use href="#hat" xlink:href="#hat"/></svg>
+            Howdy!
           </span>
-          <p>This is still a work in progress... For now we have this lovely sidebar that will one day contain a list of different 
-          categories of projects ranging from Cisco labs to video games.</p>
-          <div class="categories_list">
-            <p class="category_parent">Category 1</p>
-            <div class="category_children">
-              <p class="category_item" id="item_active">Item 1</p>
+
+          <h1>I'm Jonathan Kleven — a computer engineering student who builds, breaks, and documents real systems.</h1>
+
+          <p class="hero-sub">
+            Headed to Montana State University in Fall 2026 with a CCNA, an AWS Cloud
+            Practitioner certification, and two years of hands-on networking labs already
+            on the books. Every project below comes with a full write-up.
+          </p>
+
+          <div class="cred-chips">
+            <span class="chip"><i class="dot" aria-hidden="true"></i>CCNA · Certified Jun 2025</span>
+            <span class="chip gold"><i class="dot" aria-hidden="true"></i>AWS Cloud Practitioner · May 2026</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn" href="#reports">See the lab reports</a>
+            <a class="btn ghost" href="assets/resume/Jonathan_Kleven_Resume.pdf" download>Download resume</a>
+          </div>
+        </div>
+
+        <div class="terminal reveal" aria-label="A traceroute-style summary of Jonathan's path from Bellevue to Montana State">
+          <div class="terminal-bar"><i></i><i></i><i></i><span>jkleven@portfolio</span></div>
+          <div class="terminal-body">
+            <div class="cmd">traceroute bozeman.montana.edu</div>
+            <div class="muted">tracing the route west &middot; 5 hops</div>
+            <div class="hops">
+              <div class="hop"><b>1</b><em>bellevue-wa.home</em><span class="muted">first lines of Python, age 12</span></div>
+              <div class="hop"><b>2</b><em>newport-hs.cisco-academy</em><span class="muted">2 yrs of networking + labs</span></div>
+              <div class="hop"><b>3</b><em>ccna.cisco</em><span class="muted">certified &middot; Jun 2025</span></div>
+              <div class="hop"><b>4</b><em>cloud-practitioner.aws</em><span class="muted">certified &middot; May 2026</span></div>
+              <div class="hop"><b>5</b><em>bozeman-mt.montana-state</em><span class="muted">computer engineering &middot; Fall 2026</span></div>
             </div>
-            <p class="category_parent">Category 2</p>
-            <div class="category_children">
-              <p class="category_item">Item 1</p>
-              <p class="category_item">Item 2</p>
+            <div><span class="ok">&#10003; route established</span> <span class="muted">&middot; 0% packet loss</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ridge to-deep" aria-hidden="true"><svg><use href="#ridge-path" xlink:href="#ridge-path"/></svg></div>
+
+    <!-- =============================== ABOUT =============================== -->
+    <section class="section alt" id="about">
+      <div class="container">
+        <p class="eyebrow">About</p>
+        <h2 class="section-title">Two threads: code and aircraft.</h2>
+
+        <div class="about-grid">
+          <div class="about-prose reveal">
+            <p>
+              I wrote my first lines of <strong>Python at twelve</strong> and felt something click.
+              That curiosity turned into game jams on itch.io — GMTK, Brackeys, a NOKIA 3310 jam —
+              where I learned to ship small Unity projects on a deadline and debug my way out of
+              trouble. Somewhere along the way, coding stopped feeling like a skill and started
+              feeling like a language I actually spoke.
+            </p>
+            <p>
+              Around the same time, I became fascinated by <strong>aircraft</strong> — military
+              aircraft in particular — and the engineering packed into machines that move through
+              the sky. My grandfather works at the intersection of software and hardware in
+              aviation, and his stories turned that fascination into a direction. Computer
+              Engineering is where those two threads meet, and it's exactly what I'm headed to
+              <strong>Montana State University</strong> to study.
+            </p>
+            <p>
+              In high school I spent two years in the <strong>Cisco Networking Academy</strong>,
+              racking real equipment, writing full lab reports, and earning my CCNA before senior
+              year. Through the Cisco Project Club, I helped support classroom tech and donate IT
+              equipment to communities in Antigua. I added the AWS Cloud Practitioner certification
+              in May 2026, and I've run the A/V and livestream setup at my church since 2021.
+            </p>
+            <p>
+              Long term, I'm aiming at the layer where engineering decisions have physical
+              consequences: <strong>avionics, embedded systems, and flight software</strong>.
+              When I'm not at a keyboard, I'm usually behind a camera at an airfield.
+            </p>
+          </div>
+
+          <aside class="flight-strip reveal" aria-label="Quick facts">
+            <h3>Flight Strip</h3>
+            <dl>
+              <div class="row"><dt>Callsign</dt><dd>DrJovo</dd></div>
+              <div class="row"><dt>Base</dt><dd>Bellevue, WA</dd></div>
+              <div class="row"><dt>Next waypoint</dt><dd>Bozeman, MT</dd></div>
+              <div class="row"><dt>Program</dt><dd>Computer Engineering</dd></div>
+              <div class="row"><dt>School</dt><dd>Montana State University</dd></div>
+              <div class="row"><dt>ETA</dt><dd>Fall 2026</dd></div>
+              <div class="row"><dt>Interests</dt><dd>Aviation &middot; Photography &middot; Parkour</dd></div>
+            </dl>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <div class="ridge to-sand" aria-hidden="true"><svg><use href="#ridge-path" xlink:href="#ridge-path"/></svg></div>
+
+    <!-- =========================== CERTIFICATIONS =========================== -->
+    <section class="section" id="certifications">
+      <div class="container">
+        <p class="eyebrow">Certifications</p>
+        <h2 class="section-title">Industry credentials, earned early.</h2>
+        <p class="section-intro">
+          Both certifications were earned while still in high school — proof that the lab work
+          below maps to real, industry-recognized skills.
+        </p>
+
+        <div class="cert-grid">
+          <article class="cert-card reveal">
+            <p class="cert-badge">Cisco &middot; CCNA</p>
+            <h3>Cisco Certified Network Associate</h3>
+            <p class="cert-meta">Earned June 2025 · Cisco Systems</p>
+            <p>
+              Routing and switching, IP services, security fundamentals, and automation.
+              Backed by two years of Networking Academy coursework and the hands-on labs
+              documented in the report library below.
+            </p>
+          </article>
+
+          <article class="cert-card reveal">
+            <p class="cert-badge">AWS &middot; CLF</p>
+            <h3>AWS Certified Cloud Practitioner</h3>
+            <p class="cert-meta">Earned May 2026 · Amazon Web Services</p>
+            <p>
+              Cloud concepts, core AWS services, security and compliance, and cloud
+              economics — the foundation for building and reasoning about systems
+              that run beyond a single rack.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="ridge to-deep" aria-hidden="true"><svg><use href="#ridge-path" xlink:href="#ridge-path"/></svg></div>
+
+    <!-- ============================ LAB REPORTS ============================ -->
+    <section class="section alt" id="reports">
+      <div class="container">
+        <p class="eyebrow">Lab Report Library</p>
+        <h2 class="section-title">Proof of work, in writing.</h2>
+        <p class="section-intro">
+          Every lab here was built, broken, and fixed by hand — then written up in full:
+          purpose, background, configurations, verification, and the problems hit along
+          the way. Open any report for the complete document.
+        </p>
+
+        <div class="report-grid" id="report-grid">
+          <noscript>
+            <p>
+              JavaScript is off, so here are direct links:
+              <a href="reports/Kleven__Jonathan_-_Local_AI.pdf">Hosting a Local AI Model with a Web Interface (PDF)</a> ·
+              <a href="reports/Kleven__Jonathan_-_Route_Redistribution_With_BGP.pdf">Multi-Protocol Route Redistribution with eBGP (PDF)</a>
+            </p>
+          </noscript>
+        </div>
+        <p class="report-status" id="report-status" role="status"></p>
+      </div>
+    </section>
+
+    <div class="ridge to-sand" aria-hidden="true"><svg><use href="#ridge-path" xlink:href="#ridge-path"/></svg></div>
+
+    <!-- ========================= PROJECTS & EXPERIENCE ========================= -->
+    <section class="section" id="projects">
+      <div class="container">
+        <p class="eyebrow">Projects &amp; Experience</p>
+        <h2 class="section-title">Built with real equipment, on real deadlines.</h2>
+        <p class="section-intro">
+          Case studies from the lab bench, plus the competitions and programs that shaped
+          how I work.
+        </p>
+
+        <div class="project-grid">
+          <article class="project-card reveal">
+            <h3>Self-Hosted AI with a Web Interface</h3>
+            <p>
+              Ran an LLM locally with Ollama and Docker, exposed it through OpenWebUI, then
+              built a custom Flask chat app from scratch — streaming responses, SQL-backed
+              per-user memory, and AI-assisted intent routing for live weather and web
+              scraping.
+            </p>
+            <a class="project-link" href="reports/Kleven__Jonathan_-_Local_AI.pdf" target="_blank" rel="noopener">Read the full report &#8594;</a>
+          </article>
+
+          <article class="project-card reveal">
+            <h3>Multi-Protocol Route Redistribution with eBGP</h3>
+            <p>
+              Configured a six-router network running OSPF, EIGRP, and IS-IS side by side,
+              redistributed routes between them with eBGP as the backbone, and used
+              route-maps, weight, and local preference for policy control — in IPv4 and IPv6.
+            </p>
+            <a class="project-link" href="reports/Kleven__Jonathan_-_Route_Redistribution_With_BGP.pdf" target="_blank" rel="noopener">Read the full report &#8594;</a>
+          </article>
+
+          <article class="project-card reveal">
+            <h3>Layer 2 Attacks &amp; Mitigations</h3>
+            <p>
+              Staged common switching attacks — and then shut them down with port security,
+              DHCP snooping, and related hardening on Cisco gear. A look at the defensive
+              side of the same networks I build.
+            </p>
+            <span class="soon">Write-up landing soon</span>
+          </article>
+
+          <article class="project-card reveal">
+            <h3>Game Jams — Unity / C#</h3>
+            <p>
+              Shipped small playable games under 48–96 hour deadlines across GMTK 2022–2024,
+              Brackeys 2022.1 &amp; 2023.1, and NOKIA 3310 Jam 6. Scope control, fast
+              iteration, and debugging under pressure.
+            </p>
+            <a class="project-link" href="https://github.com/DrJovo" target="_blank" rel="noopener">More on GitHub &#8594;</a>
+          </article>
+        </div>
+
+        <h3 class="subheading">Experience &amp; programs</h3>
+        <ul class="timeline">
+          <li class="reveal">
+            <h4>CIMU — Center for Industrial and Medical Ultrasound</h4>
+            <span class="when">Summer Internship · Summer 2026</span>
+            <p>Pre-college engineering internship — hands-on exposure to research engineering before starting at MSU.</p>
+          </li>
+          <li class="reveal">
+            <h4>Washington Aerospace Scholars — Museum of Flight</h4>
+            <span class="when">Oct 2024 – Mar 2025</span>
+            <p>
+              UW-accredited program on NASA space exploration and aviation history. Co-led
+              mission integration during the summer residency for a crewed Mars mission design —
+              shaping goals, the launch schedule, and keeping every team on one plan.
+            </p>
+          </li>
+          <li class="reveal">
+            <h4>Cisco Project Club — Newport High School</h4>
+            <span class="when">Member</span>
+            <p>
+              Applied networking skills in the real world: supporting classroom technology,
+              integrating new devices into existing infrastructure, and donating IT equipment
+              to communities in Antigua.
+            </p>
+          </li>
+          <li class="reveal">
+            <h4>Joy Lutheran Church — Tech Team Volunteer</h4>
+            <span class="when">2021 – Present</span>
+            <p>
+              Run presentation and projection systems for services, manage the livestream for
+              remote attendees, and troubleshoot cameras and microphones to keep downtime near zero.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="ridge to-deep" aria-hidden="true"><svg><use href="#ridge-path" xlink:href="#ridge-path"/></svg></div>
+
+    <!-- ============================== COURSEWORK ============================== -->
+    <section class="section alt" id="coursework">
+      <div class="container">
+        <p class="eyebrow">Coursework &amp; Training</p>
+        <h2 class="section-title">The classroom side of the ledger.</h2>
+        <p class="section-intro">
+          Newport High School, Bellevue, WA · GPA 3.83 · Class of 2026. Doubled up on math
+          freshman year to reach calculus-based physics and advanced coursework early.
+        </p>
+
+        <div class="course-wrap">
+          <ul class="course-list">
+            <li class="reveal"><span>Cisco Networking Academy — Year 1</span><span>CCNA Prep</span></li>
+            <li class="reveal"><span>Cisco Networking Academy — Year 2</span><span>Project Labs</span></li>
+            <li class="reveal"><span>AP Computer Science A</span><span>Java</span></li>
+            <li class="reveal"><span>Python 1–3</span><span>Programming</span></li>
+          </ul>
+          <ul class="course-list">
+            <li class="reveal"><span>AP Calculus AB + Advanced Calculus</span><span>Math</span></li>
+            <li class="reveal"><span>AP Physics C: Mechanics</span><span>Calc-Based</span></li>
+            <li class="reveal"><span>AP Physics C: Electricity &amp; Magnetism</span><span>Calc-Based</span></li>
+            <li class="reveal"><span>AWS Cloud Coursework &amp; Labs</span><span>Cloud</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="ridge to-sand" aria-hidden="true"><svg><use href="#ridge-path" xlink:href="#ridge-path"/></svg></div>
+
+    <!-- ================================ SKILLS ================================ -->
+    <section class="section" id="skills">
+      <div class="container">
+        <p class="eyebrow">Skills</p>
+        <h2 class="section-title">The toolbox.</h2>
+
+        <div class="skills-grid">
+          <div class="skill-group reveal">
+            <h3>Languages</h3>
+            <div class="skill-tags">
+              <span>Python</span><span>C# (Unity)</span><span>Java</span>
+              <span>HTML</span><span>CSS</span><span>JavaScript</span><span>SQL basics</span>
             </div>
-            <p class="category_parent">Category 3</p>
-            <div class="category_children">
-              <p class="category_item">Item 1</p>
-              <p class="category_item">Item 2</p>
-              <p class="category_item">Item 3</p>
+          </div>
+          <div class="skill-group reveal">
+            <h3>Networking</h3>
+            <div class="skill-tags">
+              <span>Cisco IOS</span><span>OSPF</span><span>EIGRP</span><span>IS-IS</span>
+              <span>BGP</span><span>IPv4 / IPv6</span><span>VLANs &amp; L2 security</span>
+              <span>Troubleshooting</span>
+            </div>
+          </div>
+          <div class="skill-group reveal">
+            <h3>Cloud &amp; Systems</h3>
+            <div class="skill-tags">
+              <span>AWS fundamentals</span><span>Docker</span><span>Flask</span>
+              <span>Ollama / local LLMs</span><span>OpenWebUI</span><span>Windows admin</span>
+            </div>
+          </div>
+          <div class="skill-group reveal">
+            <h3>Tools</h3>
+            <div class="skill-tags">
+              <span>VS Code</span><span>Unity Engine</span><span>Git &amp; GitHub</span>
+              <span>MS Office &amp; Teams</span><span>Obsidian</span><span>Milanote</span>
             </div>
           </div>
         </div>
-        <div class="main_content" id="main">
-          <button class="menu_button" onclick="openMenu()">
-            <span class="menu_button_text">☰</span>
-          </button>
-          <h1 class="center_title">Main Content</h1>
-          <p>Yeehaw cowboy</p>
+      </div>
+    </section>
+
+    <div class="ridge to-deep" aria-hidden="true"><svg><use href="#ridge-path" xlink:href="#ridge-path"/></svg></div>
+
+    <!-- ================================ RESUME ================================ -->
+    <section class="section alt" id="resume">
+      <div class="container">
+        <p class="eyebrow">Resume</p>
+        <h2 class="section-title">The one-pager.</h2>
+
+        <div class="resume-panel reveal">
+          <div>
+            <h3>Jonathan Kleven — Resume</h3>
+            <p>
+              Education, certifications, labs, and experience on a single page. For the full
+              picture, the lab reports above go deeper than any resume can.
+            </p>
+          </div>
+          <div class="resume-actions">
+            <a class="btn" href="assets/resume/Jonathan_Kleven_Resume.pdf" target="_blank" rel="noopener">Open PDF</a>
+            <a class="btn ghost" href="assets/resume/Jonathan_Kleven_Resume.pdf" download>Download</a>
+          </div>
         </div>
       </div>
-    </main>
-    <script src="script.js"></script>
-  </body>
+    </section>
+
+    <div class="ridge to-night" aria-hidden="true"><svg><use href="#ridge-path" xlink:href="#ridge-path"/></svg></div>
+  </main>
+
+  <!-- =============================== CONTACT =============================== -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h2>Let's talk.</h2>
+      <p class="footer-lede">
+        Open to internships, research opportunities, and conversations about networking,
+        embedded systems, or anything that flies. Email is the fastest route.
+      </p>
+      <div class="contact-row">
+        <a class="btn" href="mailto:jonathanckleven@gmail.com">jonathanckleven@gmail.com</a>
+        <a class="btn ghost" href="https://github.com/DrJovo" target="_blank" rel="noopener">GitHub · DrJovo</a>
+      </div>
+
+      <div class="footer-base">
+        <span class="sig">
+          <svg aria-hidden="true"><use href="#hat" xlink:href="#hat"/></svg>
+          Jonathan Kleven · Bellevue, WA &#8594; Bozeman, MT
+        </span>
+        <span>&copy; <span id="year">2026</span> · Built by hand, like the labs.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/reports.js"></script>
+  <script src="js/main.js"></script>
+</body>
 </html>
