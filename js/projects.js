@@ -18,7 +18,7 @@ const PROJECTS = [
   {
     title: "Portfolio Website",
     description:
-      "The lab " +
+      "This site — a custom HTML, CSS, and JavaScript portfolio on GitHub Pages. The lab " +
       "library and project list are data-driven, and the library discovers new report " +
       "PDFs automatically through the GitHub API.",
     tags: ["HTML/CSS", "JavaScript", "GitHub Pages"],

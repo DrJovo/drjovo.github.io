@@ -181,7 +181,6 @@ img, svg { display: block; max-width: 100%; }
   text-decoration: none;
 }
 .brand:hover { color: var(--ink); }
-.brand .brand-hat { width: 34px; height: auto; flex: none; }
 
 .nav-links {
   display: flex;

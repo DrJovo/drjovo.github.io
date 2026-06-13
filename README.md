@@ -121,4 +121,4 @@ differently.
 
 ---
 
-Built by hand, like the labs. 🤠
+A custom portfolio site. 🏔️

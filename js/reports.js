@@ -295,8 +295,19 @@ const REPORTS_DIR = "reports";
     // Idempotent: remove any cards from a previous render before drawing.
     grid.querySelectorAll(".report-card").forEach(function (el) { el.remove(); });
 
-    files.forEach(function (filename, index) {
+    // Final guard against duplicates: one card per resolved report. A report
+    // matched to a REPORT_META entry is keyed by that entry; unmatched files
+    // are keyed by filename. This collapses any duplicates no matter how they
+    // arrived (fallback + API, a stale cached file list, etc.).
+    const drawn = new Set();
+    let index = 0;
+
+    files.forEach(function (filename) {
       const meta = findMeta(filename) || {};
+      const key = meta.title ? "meta:" + meta.title : "file:" + filename;
+      if (drawn.has(key)) return;
+      drawn.add(key);
+
       const title = meta.title || prettify(filename);
       const tags = meta.tags || ["Lab Report"];
       const href = REPORTS_DIR + "/" + encodeURIComponent(filename);
@@ -365,14 +376,16 @@ const REPORTS_DIR = "reports";
       grid.appendChild(card);
 
       // Stagger the reveal slightly for cards added after page load.
+      const i = index++;
       requestAnimationFrame(function () {
-        setTimeout(function () { card.classList.add("in"); }, 40 * index);
+        setTimeout(function () { card.classList.add("in"); }, 40 * i);
       });
     });
 
     if (status) {
+      const count = drawn.size;
       status.textContent =
-        files.length + (files.length === 1 ? " report" : " reports") + " in the library";
+        count + (count === 1 ? " report" : " reports") + " in the library";
     }
   }
 
