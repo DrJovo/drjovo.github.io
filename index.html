@@ -104,7 +104,7 @@
         </div>
 
         <div class="hero-art reveal">
-          <svg viewBox="0 0 480 480" role="img" aria-label="Emblem: a plane climbing on a contrail above layered Montana ridgelines, with circuit traces rising from the ridge into a microchip">
+          <svg viewBox="0 0 480 480" role="img" aria-label="Emblem: layered Montana ridgelines under a low sun, with circuit traces rising from the ridge into a microchip">
             <circle cx="240" cy="240" r="230" fill="#FBF4E2" stroke="#C2562B" stroke-width="3"/>
             <circle cx="240" cy="240" r="216" fill="none" stroke="#D9CBAD" stroke-width="1.5"/>
             <clipPath id="emblem-scene"><circle cx="240" cy="240" r="208"/></clipPath>
@@ -112,15 +112,11 @@
               <rect x="32" y="32" width="416" height="416" fill="#E9EEF2"/>
               <!-- sun -->
               <circle cx="322" cy="132" r="44" fill="#E0A532"/>
-              <!-- contrail + climbing plane -->
-              <path d="M72 268 Q196 150 356 96" fill="none" stroke="#2F7DBF" stroke-width="2.5" stroke-dasharray="3 9" stroke-linecap="round" opacity="0.85"/>
-              <g transform="translate(356 96) rotate(-27)">
-                <path d="M0 0 L-28 8 L-28 -8 Z" fill="#2A2118"/>
-                <path d="M-16 0 L-2 -15 L3 -15 L-8 0 L3 15 L-2 15 Z" fill="#2A2118"/>
-              </g>
-              <!-- ridgelines -->
-              <path d="M32 268 L96 214 L150 252 L214 196 L286 246 L344 206 L412 250 L448 228 L448 290 L32 290 Z" fill="#9DB8CF"/>
-              <path d="M32 308 L104 248 L172 294 L240 238 L312 298 L380 254 L448 304 L448 350 L32 350 Z" fill="#6E8FA8"/>
+              <!-- far ridge (extends below the mid ridge so no sky shows through) -->
+              <path d="M32 268 L96 214 L150 252 L214 196 L286 246 L344 206 L412 250 L448 228 L448 360 L32 360 Z" fill="#9DB8CF"/>
+              <!-- mid ridge -->
+              <path d="M32 308 L104 248 L172 294 L240 238 L312 298 L380 254 L448 304 L448 380 L32 380 Z" fill="#6E8FA8"/>
+              <!-- near ridge -->
               <path d="M16 360 L92 300 L168 344 L240 288 L320 348 L392 300 L470 354 L470 480 L16 480 Z" fill="#C2562B"/>
               <path d="M16 360 L92 300 L168 344 L240 288 L320 348 L392 300 L470 354" fill="none" stroke="#A1431F" stroke-width="3"/>
               <!-- circuit traces rising into the chip -->

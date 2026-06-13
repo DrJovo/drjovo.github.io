@@ -110,13 +110,12 @@ const REPORT_META = {
   }
 };
 
-// Files currently in the reports/ folder. Used only when the GitHub API
-// can't be reached (e.g., previewing the site locally). On the live site,
-// every PDF in reports/ is found automatically — no need to edit this.
-const FALLBACK_FILES = [
-  "Kleven__Jonathan_-_Local_AI.pdf",
-  "Kleven__Jonathan_-_Route_Redistribution_With_BGP.pdf"
-];
+// Files known to be in the reports/ folder. Every report listed in
+// REPORT_META above is included automatically, so all of them appear even
+// when the GitHub API can't be reached (local preview, rate limits, etc.).
+// Add a filename here only if it has NO entry in REPORT_META above and you
+// still want it guaranteed to show without relying on the API.
+const FALLBACK_FILES = Object.keys(REPORT_META);
 
 const REPORTS_DIR = "reports";
 
@@ -130,7 +129,14 @@ const REPORTS_DIR = "reports";
   init();
 
   async function init() {
-    const files = await listReportFiles();
+    let files = [];
+    try {
+      files = await listReportFiles();
+    } catch (err) {
+      // Last-resort: show every known report even if discovery breaks.
+      files = sortFiles(Object.keys(REPORT_META));
+    }
+    if (!files.length) files = sortFiles(Object.keys(REPORT_META));
     render(files);
   }
 
@@ -169,12 +175,14 @@ const REPORTS_DIR = "reports";
           });
           if (res.ok) {
             const items = await res.json();
-            apiFiles = items
-              .filter(function (item) {
-                return item.type === "file" && /\.pdf$/i.test(item.name);
-              })
-              .map(function (item) { return item.name; });
-            writeCache(cacheKey, apiFiles);
+            if (Array.isArray(items)) {
+              apiFiles = items
+                .filter(function (item) {
+                  return item && item.type === "file" && /\.pdf$/i.test(item.name);
+                })
+                .map(function (item) { return item.name; });
+              writeCache(cacheKey, apiFiles);
+            }
           }
         } catch (err) {
           /* Offline, rate-limited, or local preview — fall through. */
