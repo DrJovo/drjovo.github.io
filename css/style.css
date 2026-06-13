@@ -18,7 +18,7 @@
   --copper-deep:#A1431F;
   --gold:       #E0A532;   /* wheat gold */
   --sage:       #6E7F5C;   /* sagebrush green */
-  --night:      #1E2733;   /* terminal / footer navy */
+  --night:      #1E2733;   /* footer navy */
   --night-soft: #2A3645;
   --term-green: #8FD18A;
   --term-gold:  #EBC368;
@@ -266,14 +266,15 @@ img, svg { display: block; max-width: 100%; }
   line-height: 1;
   letter-spacing: -0.01em;
 }
+.howdy-h { position: relative; display: inline-block; }
 .howdy .hat {
   position: absolute;
-  top: -0.52em;
-  left: -0.18em;
-  width: 1.45em;
-  height: auto;
-  transform: rotate(-14deg);
-  transform-origin: 60% 70%;
+  top: -0.48em;
+  left: 50%;
+  width: 1.18em;
+  height: 0.6em;
+  transform: translateX(-54%) rotate(-14deg);
+  pointer-events: none;
 }
 
 .hero h1 {
@@ -320,64 +321,17 @@ img, svg { display: block; max-width: 100%; }
 
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
-/* Terminal card — the traceroute from Bellevue to Bozeman */
-.terminal {
-  background: var(--night);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-lift);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  overflow: hidden;
-}
-.terminal-bar {
+/* Hero emblem — network over the ridgeline */
+.hero-art {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-  background: var(--night-soft);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  justify-content: center;
 }
-.terminal-bar i {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: #4A5A6E;
+.hero-art svg {
+  width: 100%;
+  max-width: 430px;
+  height: auto;
+  filter: drop-shadow(0 14px 28px rgba(42, 33, 24, 0.12));
 }
-.terminal-bar i:nth-child(1) { background: var(--copper); }
-.terminal-bar i:nth-child(2) { background: var(--gold); }
-.terminal-bar i:nth-child(3) { background: var(--sage); }
-.terminal-bar span {
-  margin-left: auto;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: #8DA0B5;
-  letter-spacing: 0.06em;
-}
-
-.terminal-body {
-  padding: 20px 22px 24px;
-  font-family: var(--mono);
-  font-size: 0.84rem;
-  line-height: 1.75;
-  color: var(--term-text);
-  overflow-x: auto;
-}
-.terminal-body .cmd { color: var(--term-gold); white-space: nowrap; }
-.terminal-body .cmd::before { content: "$ "; color: var(--term-green); }
-.terminal-body .muted { color: #7E91A6; }
-.terminal-body .hops {
-  margin: 12px 0;
-  display: grid;
-  gap: 4px;
-}
-.terminal-body .hop {
-  display: grid;
-  grid-template-columns: 1.4em 13.5em 1fr;
-  gap: 0 12px;
-  white-space: nowrap;
-}
-.terminal-body .hop b { color: var(--term-green); font-weight: 600; }
-.terminal-body .hop em { color: #9FB2C6; font-style: normal; }
-.terminal-body .ok { color: var(--term-green); }
 
 /* ---- Ridgeline dividers --------------------------------------------------- */
 
@@ -492,10 +446,63 @@ img, svg { display: block; max-width: 100%; }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 26px 28px 24px;
+  overflow: hidden;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 .report-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+
+/* First page of the PDF, rendered as a preview */
+.report-thumb {
+  position: relative;
+  display: block;
+  height: 210px;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.report-thumb canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.report-thumb::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 46px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.9));
+  pointer-events: none;
+}
+.report-thumb .thumb-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--line);
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 11px, rgba(217, 203, 173, 0.25) 11px, rgba(217, 203, 173, 0.25) 12px),
+    #FFFDF7;
+}
+.report-thumb .thumb-fallback svg { width: 42px; height: 42px; color: var(--copper); opacity: 0.55; }
+.report-thumb .thumb-fallback span {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  opacity: 0.7;
+}
+.report-thumb.loaded .thumb-fallback { display: none; }
+
+.report-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px 28px;
+}
 
 .report-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
 .tag {
@@ -547,21 +554,8 @@ img, svg { display: block; max-width: 100%; }
   display: flex;
   flex-direction: column;
 }
-.project-card h3 { font-size: 1.3rem; margin-bottom: 8px; }
-.project-card p { color: var(--ink-soft); font-size: 0.98rem; flex: 1; }
-.project-card .project-link { font-weight: 600; font-size: 0.94rem; }
-.soon {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  border: 1px dashed var(--ink-soft);
-  border-radius: 5px;
-  padding: 3px 8px;
-}
+.project-card h3 { font-size: 1.3rem; margin: 6px 0 8px; }
+.project-card p { color: var(--ink-soft); font-size: 0.98rem; flex: 1; margin-bottom: 18px; }
 
 .subheading {
   font-size: 1.5rem;
@@ -760,9 +754,9 @@ img, svg { display: block; max-width: 100%; }
 
 @media (max-width: 560px) {
   body { font-size: 16px; }
+  .hero-art svg { max-width: 320px; }
+  .report-thumb { height: 180px; }
   .section { padding: 64px 0 72px; }
-  .terminal-body { font-size: 0.74rem; padding: 16px; }
-  .terminal-body .hop { grid-template-columns: 1.3em 12em 1fr; }
   .resume-panel { padding: 24px; }
   .hero-topo { display: none; }
 }

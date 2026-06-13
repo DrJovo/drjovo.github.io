@@ -41,7 +41,7 @@
   <header class="nav">
     <div class="container nav-inner">
       <a class="brand" href="#top">
-        <svg class="brand-hat" aria-hidden="true"><use href="#hat" xlink:href="#hat"/></svg>
+        <svg class="brand-hat" viewBox="0 0 142 72" aria-hidden="true"><use href="#hat" xlink:href="#hat"/></svg>
         Jonathan Kleven
       </a>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
@@ -81,8 +81,7 @@
           <p class="hero-eyebrow">Bellevue, WA &nbsp;&#8594;&nbsp; Bozeman, MT</p>
 
           <span class="howdy">
-            <svg class="hat" aria-hidden="true"><use href="#hat" xlink:href="#hat"/></svg>
-            Howdy!
+            <span class="howdy-h"><svg class="hat" viewBox="0 0 142 72" aria-hidden="true"><use href="#hat" xlink:href="#hat"/></svg>H</span>owdy!
           </span>
 
           <h1>I'm Jonathan Kleven — a computer engineering student who builds, breaks, and documents real systems.</h1>
@@ -104,20 +103,46 @@
           </div>
         </div>
 
-        <div class="terminal reveal" aria-label="A traceroute-style summary of Jonathan's path from Bellevue to Montana State">
-          <div class="terminal-bar"><i></i><i></i><i></i><span>jkleven@portfolio</span></div>
-          <div class="terminal-body">
-            <div class="cmd">traceroute bozeman.montana.edu</div>
-            <div class="muted">tracing the route west &middot; 5 hops</div>
-            <div class="hops">
-              <div class="hop"><b>1</b><em>bellevue-wa.home</em><span class="muted">first lines of Python, age 12</span></div>
-              <div class="hop"><b>2</b><em>newport-hs.cisco-academy</em><span class="muted">2 yrs of networking + labs</span></div>
-              <div class="hop"><b>3</b><em>ccna.cisco</em><span class="muted">certified &middot; Jun 2025</span></div>
-              <div class="hop"><b>4</b><em>cloud-practitioner.aws</em><span class="muted">certified &middot; May 2026</span></div>
-              <div class="hop"><b>5</b><em>bozeman-mt.montana-state</em><span class="muted">computer engineering &middot; Fall 2026</span></div>
-            </div>
-            <div><span class="ok">&#10003; route established</span> <span class="muted">&middot; 0% packet loss</span></div>
-          </div>
+        <div class="hero-art reveal">
+          <svg viewBox="0 0 480 480" role="img" aria-label="Emblem: a network topology drawn over Montana mountain ridges, with the summit node wearing a cowboy hat">
+            <circle cx="240" cy="240" r="230" fill="#FBF4E2" stroke="#C2562B" stroke-width="3"/>
+            <circle cx="240" cy="240" r="216" fill="none" stroke="#D9CBAD" stroke-width="1.5"/>
+            <clipPath id="emblem-scene"><circle cx="240" cy="240" r="208"/></clipPath>
+            <g clip-path="url(#emblem-scene)">
+              <!-- sun -->
+              <circle cx="312" cy="150" r="54" fill="#E0A532"/>
+              <circle cx="312" cy="150" r="68" fill="none" stroke="#E0A532" stroke-width="2" opacity="0.45"/>
+              <!-- ridgelines -->
+              <path d="M10 312 L80 232 L140 282 L214 196 L286 268 L352 212 L420 286 L470 252 L470 480 L10 480 Z" fill="#7FA8C9" opacity="0.55"/>
+              <path d="M-20 360 L60 292 L128 336 L208 252 L300 340 L376 282 L470 356 L470 480 L-20 480 Z" fill="#C2562B"/>
+              <path d="M-20 360 L60 292 L128 336 L208 252 L300 340 L376 282 L470 356" fill="none" stroke="#A1431F" stroke-width="3"/>
+              <!-- network links -->
+              <g stroke="#2A2118" stroke-width="2.4" stroke-dasharray="2 7" stroke-linecap="round" fill="none">
+                <path d="M80 232 L214 196"/>
+                <path d="M214 196 L352 212"/>
+                <path d="M80 232 L208 252"/>
+                <path d="M208 252 L300 340"/>
+                <path d="M208 252 L352 212"/>
+                <path d="M300 340 L376 282"/>
+                <path d="M352 212 L376 282"/>
+              </g>
+              <!-- nodes -->
+              <g fill="#FBF4E2" stroke="#2A2118" stroke-width="3">
+                <circle cx="80" cy="232" r="9"/>
+                <circle cx="352" cy="212" r="9"/>
+                <circle cx="208" cy="252" r="9"/>
+                <circle cx="300" cy="340" r="9"/>
+                <circle cx="376" cy="282" r="9"/>
+              </g>
+              <!-- summit node, wearing the hat -->
+              <circle cx="214" cy="196" r="11" fill="#FBF4E2" stroke="#2A2118" stroke-width="3"/>
+              <g transform="translate(214 185) rotate(-12) scale(0.42) translate(-71 -52)">
+                <path d="M10 52 C4 40 18 36 32 39 L46 42 L96 42 L110 39 C124 36 138 40 132 52 C118 62 94 65 71 65 C48 65 24 62 10 52 Z" fill="#9C5A2E"/>
+                <path d="M44 46 C42 22 50 9 64 8 C66 8 69 12 71 16 C73 12 76 8 78 8 C92 9 100 22 98 46 Z" fill="#8A4B26"/>
+                <path d="M43 37 L99 37 L98 47 L44 47 Z" fill="#46291A"/>
+              </g>
+            </g>
+          </svg>
         </div>
       </div>
     </section>
@@ -247,53 +272,18 @@
     <section class="section" id="projects">
       <div class="container">
         <p class="eyebrow">Projects &amp; Experience</p>
-        <h2 class="section-title">Built with real equipment, on real deadlines.</h2>
+        <h2 class="section-title">Things I've designed, built, and shipped.</h2>
         <p class="section-intro">
-          Case studies from the lab bench, plus the competitions and programs that shaped
-          how I work.
+          Standalone projects with code you can read — every card links to its repository.
+          The lab write-ups live in the report library above.
         </p>
 
-        <div class="project-grid">
-          <article class="project-card reveal">
-            <h3>Self-Hosted AI with a Web Interface</h3>
-            <p>
-              Ran an LLM locally with Ollama and Docker, exposed it through OpenWebUI, then
-              built a custom Flask chat app from scratch — streaming responses, SQL-backed
-              per-user memory, and AI-assisted intent routing for live weather and web
-              scraping.
+        <div class="project-grid" id="project-grid">
+          <noscript>
+            <p>JavaScript is off — find the code at
+              <a href="https://github.com/DrJovo">github.com/DrJovo</a>.
             </p>
-            <a class="project-link" href="reports/Kleven__Jonathan_-_Local_AI.pdf" target="_blank" rel="noopener">Read the full report &#8594;</a>
-          </article>
-
-          <article class="project-card reveal">
-            <h3>Multi-Protocol Route Redistribution with eBGP</h3>
-            <p>
-              Configured a six-router network running OSPF, EIGRP, and IS-IS side by side,
-              redistributed routes between them with eBGP as the backbone, and used
-              route-maps, weight, and local preference for policy control — in IPv4 and IPv6.
-            </p>
-            <a class="project-link" href="reports/Kleven__Jonathan_-_Route_Redistribution_With_BGP.pdf" target="_blank" rel="noopener">Read the full report &#8594;</a>
-          </article>
-
-          <article class="project-card reveal">
-            <h3>Layer 2 Attacks &amp; Mitigations</h3>
-            <p>
-              Staged common switching attacks — and then shut them down with port security,
-              DHCP snooping, and related hardening on Cisco gear. A look at the defensive
-              side of the same networks I build.
-            </p>
-            <span class="soon">Write-up landing soon</span>
-          </article>
-
-          <article class="project-card reveal">
-            <h3>Game Jams — Unity / C#</h3>
-            <p>
-              Shipped small playable games under 48–96 hour deadlines across GMTK 2022–2024,
-              Brackeys 2022.1 &amp; 2023.1, and NOKIA 3310 Jam 6. Scope control, fast
-              iteration, and debugging under pressure.
-            </p>
-            <a class="project-link" href="https://github.com/DrJovo" target="_blank" rel="noopener">More on GitHub &#8594;</a>
-          </article>
+          </noscript>
         </div>
 
         <h3 class="subheading">Experience &amp; programs</h3>
@@ -447,7 +437,7 @@
 
       <div class="footer-base">
         <span class="sig">
-          <svg aria-hidden="true"><use href="#hat" xlink:href="#hat"/></svg>
+          <svg viewBox="0 0 142 72" aria-hidden="true"><use href="#hat" xlink:href="#hat"/></svg>
           Jonathan Kleven · Bellevue, WA &#8594; Bozeman, MT
         </span>
         <span>&copy; <span id="year">2026</span> · Built by hand, like the labs.</span>
@@ -455,7 +445,9 @@
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/reports.js"></script>
+  <script src="js/projects.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

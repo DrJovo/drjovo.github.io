@@ -11,6 +11,7 @@ Live structure:
 ├── css/style.css           ← all styling
 ├── js/main.js              ← nav, scroll effects
 ├── js/reports.js           ← the lab report library (see below)
+├── js/projects.js          ← project entries with repo links (see below)
 ├── reports/                ← ★ drop lab report PDFs here ★
 ├── assets/
 │   ├── favicon.svg
@@ -43,8 +44,9 @@ either way — the report library auto-detects which kind of repo it's in.
 1. **Drop the PDF into the `reports/` folder.**
 2. Commit + push (or upload through the GitHub website).
 
-Done. The site asks GitHub for the contents of `reports/` and builds a card for
-every PDF it finds, turning the filename into a clean title automatically:
+Done. The site asks GitHub for the contents of `reports/`, builds a card for
+every PDF it finds, renders the **first page of the PDF as a preview** on the
+card, and turns the filename into a clean title automatically:
 
 ```
 Kleven__Jonathan_-_Multi_Area_OSPF.pdf   →   "Multi Area OSPF"
@@ -53,30 +55,59 @@ Kleven__Jonathan_-_Multi_Area_OSPF.pdf   →   "Multi Area OSPF"
 > Tip: name files with underscores instead of spaces, and the
 > `Kleven__Jonathan_-_` prefix is stripped from titles automatically.
 
-### Optional: nicer titles, descriptions, and tags
+### Entries: titles, descriptions, tags, order, and repo links
 
-Open `js/reports.js` and add an entry to `REPORT_META`, keyed by the exact
+`js/reports.js` has a `REPORT_META` block — one entry per report, keyed by
 filename:
 
 ```js
 "Kleven__Jonathan_-_Multi_Area_OSPF.pdf": {
-  title: "Multi-Area OSPF Design",
-  course: "Cisco Networking Academy · Year 2",
-  pages: 22,
+  order: 2,                     // position in the grid (1 = first)
+  title: "Routing with Multi-Area OSPF",
+  course: "Cisco Networking Academy",
   tags: ["OSPF", "IPv4/IPv6", "Cisco IOS"],
+  repo: "https://github.com/DrJovo/repo-name",  // shows a "Repository" button
   description: "One or two sentences about what the lab covers."
 },
 ```
 
-Reports **without** a `REPORT_META` entry still appear — they just use the
-auto-generated title and a generic description.
+- All seven labs already have entries with summaries and an `order` set.
+- **`repo` is empty on each entry** — paste a GitHub repository URL into any
+  of them and a "Repository" button appears on that card.
+- Entries are matched to files by filename, with fuzzy matching as a backup —
+  small naming differences (extra words, different separators) still match.
+  If a card ever shows a generic title, rename the entry's key to the exact
+  filename of the PDF you uploaded.
+- Reports **without** an entry still appear — auto-generated title, generic
+  description, and sorted after the ordered ones.
 
 ### Local preview note
 
 When you open `index.html` straight from your computer (not on GitHub Pages),
-the GitHub API isn't used; the library shows the files listed in `REPORT_META`.
-On the live site, every PDF in `reports/` appears whether or not it has a
-metadata entry.
+the GitHub API and PDF previews aren't available; the library shows the files
+listed in `FALLBACK_FILES` with a placeholder preview. Everything works fully
+on the live site.
+
+---
+
+## 🛠 Adding a project
+
+Projects live in `js/projects.js` — same idea as the reports. Copy the
+template at the bottom of the `PROJECTS` list, fill it in, and push:
+
+```js
+{
+  title: "Project Name",
+  description: "What it does and what's interesting about how it's built.",
+  tags: ["Python", "Flask"],
+  repo: "https://github.com/DrJovo/repo-name",  // "View repository" button
+  link: ""                                      // optional live/demo URL
+},
+```
+
+Cards appear in the order they're listed. The seeded "Portfolio Website"
+entry points at `DrJovo/DrJovo.github.io` — update it if your repo is named
+differently.
 
 ---
 
@@ -87,7 +118,8 @@ metadata entry.
 | Resume PDF          | Replace `assets/resume/Jonathan_Kleven_Resume.pdf`     |
 | Wording / sections  | `index.html` (each section is clearly commented)       |
 | Colors & fonts      | The `:root` block at the top of `css/style.css`        |
-| Traceroute hops     | The `.terminal` block in `index.html`                  |
+| Lab report entries  | `REPORT_META` in `js/reports.js`                       |
+| Project entries     | `PROJECTS` in `js/projects.js`                         |
 
 ---
 

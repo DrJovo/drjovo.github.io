@@ -4,44 +4,123 @@
    HOW TO ADD A REPORT (the easy way):
      1. Drop the PDF into the  reports/  folder.
      2. Commit + push.
-   That's it. When the site runs on GitHub Pages, it asks the GitHub API for
-   everything inside reports/ and builds a card for each PDF automatically,
-   turning the filename into a clean title.
+   That's it. On GitHub Pages the site lists everything inside reports/ and
+   builds a card for each PDF automatically, with the first page of the PDF
+   rendered as a preview and the filename turned into a clean title.
 
-   OPTIONAL: to give a report a nicer title, description, or tags, add an
-   entry to REPORT_META below, keyed by the exact filename.
+   OPTIONAL, per report:
+     - title / description / tags / course  → nicer card text
+     - order                                → position in the grid (1 = first)
+     - repo                                 → paste a GitHub repository URL to
+                                              show a "Repository" button
+   Entries are matched to files by filename. Close-but-not-exact filenames
+   (extra words, different separators) are matched automatically — but if a
+   card ever shows a generic title, make the entry's key match the filename.
    ========================================================================== */
 
-// Optional, per-file details. Files NOT listed here still show up —
-// they just get an auto-generated title from the filename.
 const REPORT_META = {
-  "Kleven__Jonathan_-_Local_AI.pdf": {
-    title: "Hosting a Local AI Model with a Web Interface",
-    course: "Cisco Networking Academy · Year 2",
-    pages: 30,
-    tags: ["Python", "Ollama", "Docker", "Flask"],
+  "Kleven__Jonathan_-_Booting_Windows_11_and_Installing_Essential_Software.pdf": {
+    order: 1,
+    title: "Booting Windows 11 & Installing Essential Software",
+    course: "Cisco Networking Academy",
+    tags: ["Windows 11", "Rufus", "PuTTY", "Wireshark"],
+    repo: "", // paste a GitHub repository URL here to show a Repository button
     description:
-      "Running an LLM locally with Ollama and Docker, exposing it through OpenWebUI, " +
-      "then building a custom Flask chat interface with streaming responses, " +
-      "SQL-backed memory, and AI-assisted function routing."
+      "A clean Windows 11 install from a Rufus-built bootable USB — BIOS boot menu, " +
+      "partitioning, updates — then the full networking toolkit: PuTTY, Cisco Packet " +
+      "Tracer, Wireshark with Npcap, NVIDIA drivers, and Microsoft 365. The foundation " +
+      "every later lab is built on."
   },
-  "Kleven__Jonathan_-_Route_Redistribution_With_BGP.pdf": {
-    title: "Multi-Protocol Route Redistribution with eBGP",
-    course: "Cisco Networking Academy · Year 2",
-    pages: 18,
-    tags: ["BGP", "OSPF", "EIGRP", "IS-IS"],
+
+  "Kleven__Jonathan_-_Routing_with_Multi-Area_OSPF.pdf": {
+    order: 2,
+    title: "Routing with Multi-Area OSPF",
+    course: "Cisco Networking Academy",
+    tags: ["OSPF", "OSPFv3", "IPv4/IPv6", "Cisco IOS"],
+    repo: "",
     description:
-      "Six routers, three interior protocols, one backbone: redistributing OSPF, " +
-      "EIGRP, and IS-IS routes through eBGP with route-maps, weight, and local " +
-      "preference — verified end to end in IPv4 and IPv6."
+      "A three-area OSPF design across five routers and two multilayer switches, " +
+      "running OSPFv2 and OSPFv3 side by side. Covers Area Border Routers, dual-stack " +
+      "SDM templates, and the troubleshooting that followed — duplicate IPv6 addresses, " +
+      "routed-port quirks, and a stubborn router-ID error."
+  },
+
+  "Kleven__Jonathan_-_Local_AI.pdf": {
+    order: 3,
+    title: "Local AI Model with a Web Interface",
+    course: "Cisco Networking Academy",
+    tags: ["Python", "Ollama", "Docker", "Flask"],
+    repo: "",
+    description:
+      "Hosting an LLM locally with Ollama and Docker, exposing it through OpenWebUI, " +
+      "then building a custom Flask chat app from scratch — streaming responses, " +
+      "SQL-backed multi-user memory, and AI-assisted intent routing for live weather " +
+      "and web scraping."
+  },
+
+  "Kleven__Jonathan_-_Route_Redistribution_With_BGP.pdf": {
+    order: 4,
+    title: "Multi-Protocol Route Redistribution with eBGP",
+    course: "Cisco Networking Academy",
+    tags: ["BGP", "OSPF", "EIGRP", "IS-IS"],
+    repo: "",
+    description:
+      "Six routers, four autonomous systems, three interior protocols: redistributing " +
+      "OSPF, EIGRP, and IS-IS routes through an eBGP backbone with route-maps, weight, " +
+      "and local preference — verified end to end in both IPv4 and IPv6."
+  },
+
+  "Kleven__Jonathan_-_Layer_2_Network_Attacks_and_Mitigations.pdf": {
+    order: 5,
+    title: "Layer 2 Network Attacks & Mitigations",
+    course: "Cisco Networking Academy",
+    tags: ["Port Security", "ARP Spoofing", "VLAN Hopping", "Linux"],
+    repo: "",
+    description:
+      "MAC flooding with macof, an ARP-spoofing man-in-the-middle, and VLAN hopping " +
+      "with Yersinia — each staged on real hardware from a dual-boot Kubuntu machine, " +
+      "then shut down with port security, a static ARP access-list, and hardened " +
+      "access ports."
+  },
+
+  "Kleven__Jonathan_-_AWS_IAM_VPC_EC2.pdf": {
+    order: 6,
+    title: "AWS IAM, VPC & EC2 Configuration and Deployment",
+    course: "AWS Cloud Coursework",
+    tags: ["AWS", "IAM", "VPC", "EC2"],
+    repo: "",
+    description:
+      "Three foundational AWS builds: IAM users, groups, and policies tested account " +
+      "by account; a custom VPC with public and private subnets, a NAT gateway, and " +
+      "security groups; and an EC2 web server launched with a bootstrap script, " +
+      "protection settings, and live resizing."
+  },
+
+  "Kleven__Jonathan_-_AWS_EBS_RDS_Auto_Scaling.pdf": {
+    order: 7,
+    title: "AWS EBS & RDS with Auto Scaling and Load Balancing",
+    course: "AWS Cloud Coursework",
+    tags: ["AWS", "EBS", "RDS", "Auto Scaling"],
+    repo: "",
+    description:
+      "Attaching, snapshotting, and restoring EBS volumes; deploying a Multi-AZ MySQL " +
+      "RDS database behind locked-down security groups; and wiring an Application Load " +
+      "Balancer to an Auto Scaling group that provisioned new instances on cue during " +
+      "a CPU load test."
   }
 };
 
-// Fallback list used when the GitHub API can't be reached
-// (e.g., previewing the site locally). Filenames only.
-const FALLBACK_FILES = Object.keys(REPORT_META);
+// Files currently in the reports/ folder. Used only when the GitHub API
+// can't be reached (e.g., previewing the site locally). On the live site,
+// every PDF in reports/ is found automatically — no need to edit this.
+const FALLBACK_FILES = [
+  "Kleven__Jonathan_-_Local_AI.pdf",
+  "Kleven__Jonathan_-_Route_Redistribution_With_BGP.pdf"
+];
 
 const REPORTS_DIR = "reports";
+const PDFJS_WORKER =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 /* ---------------------------------------------------------------------- */
 
@@ -50,6 +129,9 @@ const REPORTS_DIR = "reports";
   const status = document.getElementById("report-status");
   if (!grid) return;
 
+  const pdfReady = typeof pdfjsLib !== "undefined";
+  if (pdfReady) pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
+
   init();
 
   async function init() {
@@ -57,7 +139,8 @@ const REPORTS_DIR = "reports";
     render(files);
   }
 
-  /** Figure out the owner/repo from the GitHub Pages URL, if any. */
+  /* ------------------------- file discovery --------------------------- */
+
   function detectRepo() {
     const host = window.location.hostname;
     if (!host.endsWith(".github.io")) return null;
@@ -70,7 +153,6 @@ const REPORTS_DIR = "reports";
     return { owner, repo };
   }
 
-  /** List every .pdf in reports/ — GitHub API first, fallback list otherwise. */
   async function listReportFiles() {
     const repoInfo = detectRepo();
     let apiFiles = [];
@@ -105,23 +187,72 @@ const REPORTS_DIR = "reports";
       }
     }
 
-    // Union of API results and the known fallback list, de-duplicated.
     const all = new Set(FALLBACK_FILES);
     apiFiles.forEach(function (name) { all.add(name); });
     return sortFiles(Array.from(all));
   }
 
-  /** Known (curated) files keep their declared order; new files follow A→Z. */
+  /* ----------------------- metadata matching --------------------------- */
+
+  const STOPWORDS = { and: 1, with: 1, the: 1, a: 1, an: 1, of: 1, for: 1, to: 1 };
+
+  function normalize(name) {
+    return name
+      .toLowerCase()
+      .replace(/\.pdf$/i, "")
+      .replace(/kleven|jonathan/g, "")
+      .replace(/[^a-z0-9]/g, "");
+  }
+
+  function tokens(name) {
+    return name
+      .toLowerCase()
+      .replace(/\.pdf$/i, "")
+      .replace(/kleven|jonathan/g, " ")
+      .split(/[^a-z0-9]+/)
+      .filter(function (t) { return t && !STOPWORDS[t]; });
+  }
+
+  /** Find the metadata entry for a filename — exact first, then fuzzy. */
+  function findMeta(filename) {
+    if (REPORT_META[filename]) return REPORT_META[filename];
+
+    const keys = Object.keys(REPORT_META);
+    const n = normalize(filename);
+
+    // Normalized equality or containment (long strings only).
+    for (let i = 0; i < keys.length; i++) {
+      const k = normalize(keys[i]);
+      if (!k || !n) continue;
+      if (k === n) return REPORT_META[keys[i]];
+      if (k.length >= 8 && n.length >= 8 && (k.includes(n) || n.includes(k))) {
+        return REPORT_META[keys[i]];
+      }
+    }
+
+    // Token overlap: most distinctive words shared → same report.
+    const ft = tokens(filename);
+    for (let i = 0; i < keys.length; i++) {
+      const kt = tokens(keys[i]);
+      const small = Math.min(ft.length, kt.length);
+      if (small < 2) continue;
+      let common = 0;
+      ft.forEach(function (t) { if (kt.indexOf(t) !== -1) common++; });
+      if (common >= 2 && common >= small * 0.7) return REPORT_META[keys[i]];
+    }
+    return null;
+  }
+
   function sortFiles(files) {
-    const knownOrder = Object.keys(REPORT_META);
-    return files.sort(function (a, b) {
-      const ia = knownOrder.indexOf(a);
-      const ib = knownOrder.indexOf(b);
-      if (ia !== -1 && ib !== -1) return ia - ib;
-      if (ia !== -1) return -1;
-      if (ib !== -1) return 1;
-      return prettify(a).localeCompare(prettify(b));
-    });
+    return files
+      .map(function (f) { return { f: f, meta: findMeta(f) }; })
+      .sort(function (a, b) {
+        const oa = a.meta && a.meta.order != null ? a.meta.order : 999;
+        const ob = b.meta && b.meta.order != null ? b.meta.order : 999;
+        if (oa !== ob) return oa - ob;
+        return prettify(a.f).localeCompare(prettify(b.f));
+      })
+      .map(function (x) { return x.f; });
   }
 
   /** "Kleven__Jonathan_-_Multi_Area_OSPF.pdf" → "Multi Area OSPF" */
@@ -135,15 +266,22 @@ const REPORTS_DIR = "reports";
     return t || filename;
   }
 
+  /* ----------------------------- rendering ------------------------------ */
+
   function render(files) {
     files.forEach(function (filename, index) {
-      const meta = REPORT_META[filename] || {};
+      const meta = findMeta(filename) || {};
       const title = meta.title || prettify(filename);
       const tags = meta.tags || ["Lab Report"];
       const href = REPORTS_DIR + "/" + encodeURIComponent(filename);
 
       const card = document.createElement("article");
       card.className = "report-card reveal";
+
+      card.appendChild(makeThumb(href, title));
+
+      const body = document.createElement("div");
+      body.className = "report-body";
 
       const tagRow = document.createElement("div");
       tagRow.className = "report-tags";
@@ -167,7 +305,6 @@ const REPORTS_DIR = "reports";
       metaLine.className = "report-meta";
       const bits = [];
       if (meta.course) bits.push(meta.course);
-      if (meta.pages) bits.push(meta.pages + " pages");
       bits.push("PDF");
       metaLine.textContent = bits.join(" · ");
 
@@ -180,21 +317,31 @@ const REPORTS_DIR = "reports";
       open.target = "_blank";
       open.rel = "noopener";
       open.textContent = "Open report";
+      actions.appendChild(open);
 
       const dl = document.createElement("a");
       dl.className = "btn small ghost";
       dl.href = href;
       dl.setAttribute("download", "");
       dl.textContent = "Download";
-
-      actions.appendChild(open);
       actions.appendChild(dl);
 
-      card.appendChild(tagRow);
-      card.appendChild(h3);
-      card.appendChild(desc);
-      card.appendChild(metaLine);
-      card.appendChild(actions);
+      if (meta.repo) {
+        const repo = document.createElement("a");
+        repo.className = "btn small ghost";
+        repo.href = meta.repo;
+        repo.target = "_blank";
+        repo.rel = "noopener";
+        repo.textContent = "Repository";
+        actions.appendChild(repo);
+      }
+
+      body.appendChild(tagRow);
+      body.appendChild(h3);
+      body.appendChild(desc);
+      body.appendChild(metaLine);
+      body.appendChild(actions);
+      card.appendChild(body);
       grid.appendChild(card);
 
       // Stagger the reveal slightly for cards added after page load.
@@ -205,8 +352,71 @@ const REPORTS_DIR = "reports";
 
     if (status) {
       status.textContent =
-        files.length + (files.length === 1 ? " report" : " reports") +
-        " in the library · more on the way";
+        files.length + (files.length === 1 ? " report" : " reports") + " in the library";
+    }
+  }
+
+  /* -------------------- first-page PDF previews ------------------------- */
+
+  function makeThumb(href, title) {
+    const wrap = document.createElement("a");
+    wrap.className = "report-thumb";
+    wrap.href = href;
+    wrap.target = "_blank";
+    wrap.rel = "noopener";
+    wrap.setAttribute("aria-label", "Open " + title);
+
+    const fallback = document.createElement("div");
+    fallback.className = "thumb-fallback";
+    fallback.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>' +
+      '<path d="M14 2v6h6M9 13h6M9 17h6"/></svg><span>PDF</span>';
+    wrap.appendChild(fallback);
+
+    if (pdfReady) queueThumb(wrap, href);
+    return wrap;
+  }
+
+  /** Render the preview lazily, once the card approaches the viewport. */
+  function queueThumb(wrap, href) {
+    const start = function () { renderThumb(wrap, href); };
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            io.disconnect();
+            start();
+          }
+        });
+      }, { rootMargin: "400px" });
+      io.observe(wrap);
+    } else {
+      start();
+    }
+  }
+
+  async function renderThumb(wrap, href) {
+    try {
+      const pdf = await pdfjsLib.getDocument({ url: href }).promise;
+      const page = await pdf.getPage(1);
+      const base = page.getViewport({ scale: 1 });
+      const cssWidth = wrap.clientWidth || 520;
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const scale = (cssWidth * ratio) / base.width;
+      const viewport = page.getViewport({ scale: scale });
+
+      const canvas = document.createElement("canvas");
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      await page.render({ canvasContext: canvas.getContext("2d"), viewport: viewport }).promise;
+
+      wrap.insertBefore(canvas, wrap.firstChild);
+      wrap.classList.add("loaded");
+      if (pdf.destroy) pdf.destroy();
+    } catch (err) {
+      /* CORS, network, or render failure — the fallback icon stays. */
     }
   }
 
