@@ -45,8 +45,7 @@ either way — the report library auto-detects which kind of repo it's in.
 2. Commit + push (or upload through the GitHub website).
 
 Done. The site asks GitHub for the contents of `reports/`, builds a card for
-every PDF it finds, renders the **first page of the PDF as a preview** on the
-card, and turns the filename into a clean title automatically:
+every PDF it finds, and turns the filename into a clean title automatically:
 
 ```
 Kleven__Jonathan_-_Multi_Area_OSPF.pdf   →   "Multi Area OSPF"
@@ -84,9 +83,8 @@ filename:
 ### Local preview note
 
 When you open `index.html` straight from your computer (not on GitHub Pages),
-the GitHub API and PDF previews aren't available; the library shows the files
-listed in `FALLBACK_FILES` with a placeholder preview. Everything works fully
-on the live site.
+the GitHub API isn't available; the library shows the files listed in
+`FALLBACK_FILES`. On the live site, every PDF in `reports/` appears.
 
 ---
 

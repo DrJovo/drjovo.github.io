@@ -104,42 +104,40 @@
         </div>
 
         <div class="hero-art reveal">
-          <svg viewBox="0 0 480 480" role="img" aria-label="Emblem: a network topology drawn over Montana mountain ridges, with the summit node wearing a cowboy hat">
+          <svg viewBox="0 0 480 480" role="img" aria-label="Emblem: a plane climbing on a contrail above layered Montana ridgelines, with circuit traces rising from the ridge into a microchip">
             <circle cx="240" cy="240" r="230" fill="#FBF4E2" stroke="#C2562B" stroke-width="3"/>
             <circle cx="240" cy="240" r="216" fill="none" stroke="#D9CBAD" stroke-width="1.5"/>
             <clipPath id="emblem-scene"><circle cx="240" cy="240" r="208"/></clipPath>
             <g clip-path="url(#emblem-scene)">
+              <rect x="32" y="32" width="416" height="416" fill="#E9EEF2"/>
               <!-- sun -->
-              <circle cx="312" cy="150" r="54" fill="#E0A532"/>
-              <circle cx="312" cy="150" r="68" fill="none" stroke="#E0A532" stroke-width="2" opacity="0.45"/>
+              <circle cx="322" cy="132" r="44" fill="#E0A532"/>
+              <!-- contrail + climbing plane -->
+              <path d="M72 268 Q196 150 356 96" fill="none" stroke="#2F7DBF" stroke-width="2.5" stroke-dasharray="3 9" stroke-linecap="round" opacity="0.85"/>
+              <g transform="translate(356 96) rotate(-27)">
+                <path d="M0 0 L-28 8 L-28 -8 Z" fill="#2A2118"/>
+                <path d="M-16 0 L-2 -15 L3 -15 L-8 0 L3 15 L-2 15 Z" fill="#2A2118"/>
+              </g>
               <!-- ridgelines -->
-              <path d="M10 312 L80 232 L140 282 L214 196 L286 268 L352 212 L420 286 L470 252 L470 480 L10 480 Z" fill="#7FA8C9" opacity="0.55"/>
-              <path d="M-20 360 L60 292 L128 336 L208 252 L300 340 L376 282 L470 356 L470 480 L-20 480 Z" fill="#C2562B"/>
-              <path d="M-20 360 L60 292 L128 336 L208 252 L300 340 L376 282 L470 356" fill="none" stroke="#A1431F" stroke-width="3"/>
-              <!-- network links -->
-              <g stroke="#2A2118" stroke-width="2.4" stroke-dasharray="2 7" stroke-linecap="round" fill="none">
-                <path d="M80 232 L214 196"/>
-                <path d="M214 196 L352 212"/>
-                <path d="M80 232 L208 252"/>
-                <path d="M208 252 L300 340"/>
-                <path d="M208 252 L352 212"/>
-                <path d="M300 340 L376 282"/>
-                <path d="M352 212 L376 282"/>
+              <path d="M32 268 L96 214 L150 252 L214 196 L286 246 L344 206 L412 250 L448 228 L448 290 L32 290 Z" fill="#9DB8CF"/>
+              <path d="M32 308 L104 248 L172 294 L240 238 L312 298 L380 254 L448 304 L448 350 L32 350 Z" fill="#6E8FA8"/>
+              <path d="M16 360 L92 300 L168 344 L240 288 L320 348 L392 300 L470 354 L470 480 L16 480 Z" fill="#C2562B"/>
+              <path d="M16 360 L92 300 L168 344 L240 288 L320 348 L392 300 L470 354" fill="none" stroke="#A1431F" stroke-width="3"/>
+              <!-- circuit traces rising into the chip -->
+              <g stroke="#2A2118" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M168 344 L168 392 L206 392"/>
+                <path d="M240 288 L240 364"/>
+                <path d="M320 348 L320 392 L274 392"/>
               </g>
-              <!-- nodes -->
-              <g fill="#FBF4E2" stroke="#2A2118" stroke-width="3">
-                <circle cx="80" cy="232" r="9"/>
-                <circle cx="352" cy="212" r="9"/>
-                <circle cx="208" cy="252" r="9"/>
-                <circle cx="300" cy="340" r="9"/>
-                <circle cx="376" cy="282" r="9"/>
-              </g>
-              <!-- summit node, wearing the hat -->
-              <circle cx="214" cy="196" r="11" fill="#FBF4E2" stroke="#2A2118" stroke-width="3"/>
-              <g transform="translate(214 185) rotate(-12) scale(0.42) translate(-71 -52)">
-                <path d="M10 52 C4 40 18 36 32 39 L46 42 L96 42 L110 39 C124 36 138 40 132 52 C118 62 94 65 71 65 C48 65 24 62 10 52 Z" fill="#9C5A2E"/>
-                <path d="M44 46 C42 22 50 9 64 8 C66 8 69 12 71 16 C73 12 76 8 78 8 C92 9 100 22 98 46 Z" fill="#8A4B26"/>
-                <path d="M43 37 L99 37 L98 47 L44 47 Z" fill="#46291A"/>
+              <g fill="#2A2118"><circle cx="168" cy="344" r="4.5"/><circle cx="320" cy="348" r="4.5"/></g>
+              <!-- microchip -->
+              <rect x="204" y="362" width="72" height="52" rx="6" fill="#FBF4E2" stroke="#2A2118" stroke-width="3"/>
+              <rect x="224" y="380" width="32" height="16" rx="3" fill="#2F7DBF"/>
+              <g stroke="#2A2118" stroke-width="3" stroke-linecap="round">
+                <path d="M218 362 L218 352"/><path d="M240 362 L240 352"/><path d="M262 362 L262 352"/>
+                <path d="M218 414 L218 424"/><path d="M240 414 L240 424"/><path d="M262 414 L262 424"/>
+                <path d="M204 376 L194 376"/><path d="M204 400 L194 400"/>
+                <path d="M276 376 L286 376"/><path d="M276 400 L286 400"/>
               </g>
             </g>
           </svg>
@@ -440,12 +438,11 @@
           <svg viewBox="0 0 142 72" aria-hidden="true"><use href="#hat" xlink:href="#hat"/></svg>
           Jonathan Kleven · Bellevue, WA &#8594; Bozeman, MT
         </span>
-        <span>&copy; <span id="year">2026</span> · Built by hand, like the labs.</span>
+        <span>&copy; <span id="year">2026</span></span>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/reports.js"></script>
   <script src="js/projects.js"></script>
   <script src="js/main.js"></script>

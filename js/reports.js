@@ -5,8 +5,8 @@
      1. Drop the PDF into the  reports/  folder.
      2. Commit + push.
    That's it. On GitHub Pages the site lists everything inside reports/ and
-   builds a card for each PDF automatically, with the first page of the PDF
-   rendered as a preview and the filename turned into a clean title.
+   builds a card for each PDF automatically, turning the filename into a clean
+   title.
 
    OPTIONAL, per report:
      - title / description / tags / course  → nicer card text
@@ -119,8 +119,6 @@ const FALLBACK_FILES = [
 ];
 
 const REPORTS_DIR = "reports";
-const PDFJS_WORKER =
-  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 /* ---------------------------------------------------------------------- */
 
@@ -128,9 +126,6 @@ const PDFJS_WORKER =
   const grid = document.getElementById("report-grid");
   const status = document.getElementById("report-status");
   if (!grid) return;
-
-  const pdfReady = typeof pdfjsLib !== "undefined";
-  if (pdfReady) pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
 
   init();
 
@@ -278,11 +273,6 @@ const PDFJS_WORKER =
       const card = document.createElement("article");
       card.className = "report-card reveal";
 
-      card.appendChild(makeThumb(href, title));
-
-      const body = document.createElement("div");
-      body.className = "report-body";
-
       const tagRow = document.createElement("div");
       tagRow.className = "report-tags";
       tags.forEach(function (t) {
@@ -336,12 +326,11 @@ const PDFJS_WORKER =
         actions.appendChild(repo);
       }
 
-      body.appendChild(tagRow);
-      body.appendChild(h3);
-      body.appendChild(desc);
-      body.appendChild(metaLine);
-      body.appendChild(actions);
-      card.appendChild(body);
+      card.appendChild(tagRow);
+      card.appendChild(h3);
+      card.appendChild(desc);
+      card.appendChild(metaLine);
+      card.appendChild(actions);
       grid.appendChild(card);
 
       // Stagger the reveal slightly for cards added after page load.
@@ -353,70 +342,6 @@ const PDFJS_WORKER =
     if (status) {
       status.textContent =
         files.length + (files.length === 1 ? " report" : " reports") + " in the library";
-    }
-  }
-
-  /* -------------------- first-page PDF previews ------------------------- */
-
-  function makeThumb(href, title) {
-    const wrap = document.createElement("a");
-    wrap.className = "report-thumb";
-    wrap.href = href;
-    wrap.target = "_blank";
-    wrap.rel = "noopener";
-    wrap.setAttribute("aria-label", "Open " + title);
-
-    const fallback = document.createElement("div");
-    fallback.className = "thumb-fallback";
-    fallback.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" ' +
-      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>' +
-      '<path d="M14 2v6h6M9 13h6M9 17h6"/></svg><span>PDF</span>';
-    wrap.appendChild(fallback);
-
-    if (pdfReady) queueThumb(wrap, href);
-    return wrap;
-  }
-
-  /** Render the preview lazily, once the card approaches the viewport. */
-  function queueThumb(wrap, href) {
-    const start = function () { renderThumb(wrap, href); };
-    if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            io.disconnect();
-            start();
-          }
-        });
-      }, { rootMargin: "400px" });
-      io.observe(wrap);
-    } else {
-      start();
-    }
-  }
-
-  async function renderThumb(wrap, href) {
-    try {
-      const pdf = await pdfjsLib.getDocument({ url: href }).promise;
-      const page = await pdf.getPage(1);
-      const base = page.getViewport({ scale: 1 });
-      const cssWidth = wrap.clientWidth || 520;
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
-      const scale = (cssWidth * ratio) / base.width;
-      const viewport = page.getViewport({ scale: scale });
-
-      const canvas = document.createElement("canvas");
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-      await page.render({ canvasContext: canvas.getContext("2d"), viewport: viewport }).promise;
-
-      wrap.insertBefore(canvas, wrap.firstChild);
-      wrap.classList.add("loaded");
-      if (pdf.destroy) pdf.destroy();
-    } catch (err) {
-      /* CORS, network, or render failure — the fallback icon stays. */
     }
   }
 
