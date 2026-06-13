@@ -269,12 +269,13 @@ img, svg { display: block; max-width: 100%; }
 .howdy-h { position: relative; display: inline-block; }
 .howdy .hat {
   position: absolute;
-  top: -0.46em;
-  left: 52%;
-  width: 2em;
+  top: -0.53em;
+  left: 44%;
+  width: 1.45em;
   height: 1.15em;
   transform: translateX(-50%) rotate(-10deg);
   pointer-events: none;
+  max-width: none;
 }
 
 .hero h1 {
