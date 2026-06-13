@@ -190,9 +190,29 @@ const REPORTS_DIR = "reports";
       }
     }
 
-    const all = new Set(FALLBACK_FILES);
-    apiFiles.forEach(function (name) { all.add(name); });
-    return sortFiles(Array.from(all));
+    // Merge the always-present fallback list with anything the API found.
+    // A report can be referenced two ways at once — by its REPORT_META key
+    // (placeholder) and by the real uploaded filename — so collapse entries
+    // that resolve to the same report, keeping the real file when present.
+    const seen = new Map();      // metadata entry  -> chosen filename
+    const standalone = new Set(); // files with no metadata, keyed by filename
+
+    function consider(name, isReal) {
+      const meta = findMeta(name);
+      if (meta) {
+        const existing = seen.get(meta);
+        // Prefer a real (API) filename over a fallback/key placeholder.
+        if (!existing || isReal) seen.set(meta, name);
+      } else {
+        standalone.add(name);
+      }
+    }
+
+    FALLBACK_FILES.forEach(function (name) { consider(name, false); });
+    apiFiles.forEach(function (name) { consider(name, true); });
+
+    const files = Array.from(seen.values()).concat(Array.from(standalone));
+    return sortFiles(files);
   }
 
   /* ----------------------- metadata matching --------------------------- */
@@ -272,6 +292,9 @@ const REPORTS_DIR = "reports";
   /* ----------------------------- rendering ------------------------------ */
 
   function render(files) {
+    // Idempotent: remove any cards from a previous render before drawing.
+    grid.querySelectorAll(".report-card").forEach(function (el) { el.remove(); });
+
     files.forEach(function (filename, index) {
       const meta = findMeta(filename) || {};
       const title = meta.title || prettify(filename);
