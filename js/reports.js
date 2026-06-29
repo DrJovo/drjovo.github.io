@@ -19,7 +19,7 @@
    ========================================================================== */
 
 const REPORT_META = {
-  "Kleven__Jonathan_-_Booting_Windows_11_and_Installing_Essential_Software.pdf": {
+  "Kleven__Jonathan_-_Windows 11 Installation.pdf": {
     order: 1,
     title: "Booting Windows 11 & Installing Essential Software",
     course: "Cisco Networking Academy",
@@ -32,7 +32,7 @@ const REPORT_META = {
       "every later lab is built on."
   },
 
-  "Kleven__Jonathan_-_Routing_with_Multi-Area_OSPF.pdf": {
+  "Kleven__Jonathan_-_Multi-Area OSPF.pdf": {
     order: 2,
     title: "Routing with Multi-Area OSPF",
     course: "Cisco Networking Academy",
@@ -45,7 +45,7 @@ const REPORT_META = {
       "routed-port quirks, and a stubborn router-ID error."
   },
 
-  "Kleven__Jonathan_-_Local_AI.pdf": {
+  "Kleven__Jonathan_-_Local AI.pdf": {
     order: 3,
     title: "Local AI Model with a Web Interface",
     course: "Cisco Networking Academy",
@@ -58,7 +58,7 @@ const REPORT_META = {
       "and web scraping."
   },
 
-  "Kleven__Jonathan_-_Route_Redistribution_With_BGP.pdf": {
+  "Kleven__Jonathan_-_Route Redistribution With BGP.pdf": {
     order: 4,
     title: "Multi-Protocol Route Redistribution with eBGP",
     course: "Cisco Networking Academy",
@@ -70,7 +70,7 @@ const REPORT_META = {
       "and local preference — verified end to end in both IPv4 and IPv6."
   },
 
-  "Kleven__Jonathan_-_Layer_2_Network_Attacks_and_Mitigations.pdf": {
+  "Kleven__Jonathan_-_Layer 2 Attacks.pdf": {
     order: 5,
     title: "Layer 2 Network Attacks & Mitigations",
     course: "Cisco Networking Academy",
@@ -83,7 +83,7 @@ const REPORT_META = {
       "access ports."
   },
 
-  "Kleven__Jonathan_-_AWS_IAM_VPC_EC2.pdf": {
+  "Kleven__Jonathan_-_AWS IAM, VPC, EC2.pdf": {
     order: 6,
     title: "AWS IAM, VPC & EC2 Configuration and Deployment",
     course: "AWS Cloud Coursework",
@@ -96,7 +96,7 @@ const REPORT_META = {
       "protection settings, and live resizing."
   },
 
-  "Kleven__Jonathan_-_AWS_EBS_RDS_Auto_Scaling.pdf": {
+  "Kleven__Jonathan_-_AWS EBS, RDS, Scaling & Load Balancing.pdf": {
     order: 7,
     title: "AWS EBS & RDS with Auto Scaling and Load Balancing",
     course: "AWS Cloud Coursework",
