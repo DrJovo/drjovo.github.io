@@ -4,11 +4,15 @@ A single-page portfolio for showcasing certifications, networking lab reports,
 projects, and contact info. Plain HTML/CSS/JS — no build step, no framework —
 designed to run for free on **GitHub Pages**.
 
+This repository hosts **more than one site**. The portfolio lives at the repo
+root (so it's served at `drjovo.github.io`), and each additional standalone site
+gets its **own top-level folder** (served at `drjovo.github.io/<folder>/`).
+
 Live structure:
 
 ```
-├── index.html              ← the whole site
-├── css/style.css           ← all styling
+├── index.html              ← the portfolio (the whole site)  → drjovo.github.io
+├── css/style.css           ← portfolio styling
 ├── js/main.js              ← nav, scroll effects
 ├── js/reports.js           ← the lab report library (see below)
 ├── js/projects.js          ← project entries with repo links (see below)
@@ -16,8 +20,21 @@ Live structure:
 ├── assets/
 │   ├── favicon.svg
 │   └── resume/Jonathan_Kleven_Resume.pdf
+│
+├── MSU/                     ← separate site: "Bobcat Launchpad" → drjovo.github.io/MSU/
+│   ├── index.html          ←   self-contained (its own css/ and js/)
+│   ├── css/                ←   unlisted — no link from the portfolio, and
+│   └── js/                 ←   noindex'd, so it's only reachable by typing the URL
+│
+├── .gitignore
 └── .nojekyll
 ```
+
+> **Adding another site later:** create a new top-level folder (e.g. `blog/`)
+> with its own `index.html` and assets, using **relative** paths so it works
+> under a subpath. It'll be live at `drjovo.github.io/<folder>/`. Keep each
+> site's files inside its own folder — don't mix them with the portfolio's
+> root-level `css/`, `js/`, or `assets/`.
 
 ---
 

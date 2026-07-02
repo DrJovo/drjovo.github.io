@@ -1,0 +1,9 @@
+# Local Claude Code / editor tooling — not part of any site
+.claude/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.vscode/
