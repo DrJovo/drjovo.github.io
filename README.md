@@ -26,6 +26,11 @@ Live structure:
 │   ├── css/                ←   unlisted — no link from the portfolio, and
 │   └── js/                 ←   noindex'd, so it's only reachable by typing the URL
 │
+├── workout/                 ← separate app: "Workout Manager" → drjovo.github.io/workout/
+│                           ←   generated — built and published from the Workout Manager
+│                           ←   project ("Publish to Website.cmd"); don't edit files here.
+│                           ←   Unlisted and noindex'd, like MSU/.
+│
 ├── .gitignore
 └── .nojekyll
 ```
