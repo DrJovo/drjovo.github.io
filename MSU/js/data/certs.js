@@ -27,7 +27,7 @@ window.PAGES.certs = {
       icon: "🗺️",
       intro: "Grouped by how well each fits your goals, then by score. Flip \"Targeting\" on the ones you plan to chase this summer.",
       groups: [
-        { name: "✅ Already earned", items: [
+        { name: "Already earned", items: [
           { id: "cert-ccna", earned: true, name: "Cisco CCNA", issuer: "Cisco", earnedNote: "Earned June 2025",
             validates: "Routing & switching, IP services, security fundamentals, and network automation — the foundation everything below builds on.",
             url: "https://www.cisco.com/site/us/en/learn/training-certifications/certifications/enterprise/ccna/index.html" },
@@ -35,7 +35,7 @@ window.PAGES.certs = {
             validates: "Cloud concepts, core AWS services, security & compliance, and cloud economics. Your jumping-off point into the AWS associate tier.",
             url: "https://aws.amazon.com/certification/certified-cloud-practitioner/" }
         ]},
-        { name: "🏆 Top picks for your summer", note: "The highest-value next steps for your exact background.", items: [
+        { name: "Top picks for your summer", note: "The highest-value next steps for your exact background.", items: [
           { id: "cert-saa", rank: 1, score: 10, name: "AWS Certified Solutions Architect – Associate", issuer: "AWS",
             cost: "$150", study: "$0–$60", prep: "40–80 hrs · ~4–6 wks", tag: "Best next AWS step after Cloud Practitioner",
             validates: "Designing distributed systems on AWS with the Well-Architected Framework — security, reliability, performance, and cost.",
@@ -62,7 +62,7 @@ window.PAGES.certs = {
             why: "The most practical GCP cert for where you are — it gives you cloud breadth beyond AWS, which pays off if a future internship or employer runs on Google Cloud instead.",
             url: "https://cloud.google.com/learn/certification/cloud-engineer" }
         ]},
-        { name: "🧩 Solid, more specialized options", items: [
+        { name: "Solid, more specialized options", items: [
           { id: "cert-linux", rank: 6, score: 8, name: "CompTIA Linux+", issuer: "CompTIA",
             cost: "$369", study: "$0–$400", prep: "40–70 hrs", tag: "Strong systems foundation for CE & embedded",
             validates: "Managing, securing, automating, and troubleshooting Linux — plus containers and orchestration (XK0-005).",
@@ -79,7 +79,7 @@ window.PAGES.certs = {
             why: "Respected, but aligned to data engineering more than computer engineering broadly. Worth it only if you know you want data-infrastructure or analytics-pipeline work; Google recommends real industry experience first.",
             url: "https://cloud.google.com/learn/certification/data-engineer" }
         ]},
-        { name: "🤖 AI literacy & lighter / situational credentials", note: "Useful in specific cases, but most are weaker employer signals than the picks above. Chase at most one AI badge — and only after a stronger cert, or if it's nearly free.", items: [
+        { name: "AI literacy & lighter / situational credentials", note: "Useful in specific cases, but most are weaker employer signals than the picks above. Chase at most one AI badge — and only after a stronger cert, or if it's nearly free.", items: [
           { id: "cert-awsai", rank: 9, score: 6.5, name: "AWS Certified AI Practitioner", issuer: "AWS",
             cost: "$100", study: "$0+", prep: "15–30 hrs · ~1–2 wks", tag: "AI literacy — foundational",
             validates: "Foundational AI/ML concepts, AWS AI services, responsible-AI ideas, and practical AI literacy on AWS.",

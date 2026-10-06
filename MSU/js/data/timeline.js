@@ -12,7 +12,7 @@ window.PAGES.timeline = {
       icon: "🧭",
       blocks: [
         { k: "callout", variant: "tip",
-          html: "Work top-to-bottom within each phase — items are roughly in priority order. Phases are timed relative to <strong>move-in</strong>; set your move-in date on the Dashboard or in Settings to keep the countdown accurate. Items marked ⚠️ are time-sensitive or MSU-specific — verify them." }
+          html: "Work top-to-bottom within each phase — items are roughly in priority order. Phases are timed relative to <strong>move-in</strong>; set your move-in date on the Dashboard or in Settings to keep the countdown accurate. Items flagged with a small alert icon are time-sensitive or MSU-specific — verify them." }
       ]
     },
     {
@@ -22,7 +22,7 @@ window.PAGES.timeline = {
       icon: "✅",
       allowAdd: true,
       groups: [
-        { id: "tl-g-3mo", name: "🟢 ~3 months before move-in", items: [
+        { id: "tl-g-3mo", name: "~3 months before move-in", items: [
           { id: "tl1-enroll", label: "essential", warn: true, text: "Confirm enrollment & pay any deposit; finish your admissions checklist", note: "Includes accepting scholarships and submitting final transcripts." },
           { id: "tl1-email", label: "essential", warn: true, text: "Set up your MSU email / NetID and start checking it", note: "" },
           { id: "tl1-fafsa", label: "essential", warn: true, text: "Finish FAFSA / financial aid and accept your awards", note: "FAFSA opens Oct 1." },
@@ -35,7 +35,7 @@ window.PAGES.timeline = {
           { id: "tl1-budget", label: "recommended", text: "Set a budget; plan how you'll pay tuition / rent", note: "" },
           { id: "tl1-buy", label: "recommended", text: "Buy the major essentials: Twin XL bedding, laptop, warm coat, backpack, calculator", note: "Don't buy banned items or non-essentials yet." }
         ]},
-        { id: "tl-g-1mo", name: "🟡 ~1 month before", items: [
+        { id: "tl-g-1mo", name: "~1 month before", items: [
           { id: "tl2-modules", label: "essential", warn: true, text: "Complete the pre-orientation modules by their deadline", note: "Check your session's date." },
           { id: "tl2-register", label: "essential", warn: true, text: "Register for classes early once eligible", note: "" },
           { id: "tl2-plan", label: "recommended", warn: true, text: "Look up your CompE 4-year plan and find / email your advisor", note: "catalog.montana.edu — know which course gates which." },
@@ -51,7 +51,7 @@ window.PAGES.timeline = {
           { id: "tl2-travel", label: "recommended", text: "Arrange travel to Bozeman (book flights early / plan the drive)", note: "" },
           { id: "tl2-banking", label: "optional", text: "Get a physical / fill prescriptions; set up a no-fee student bank account", note: "" }
         ]},
-        { id: "tl-g-week", name: "🟠 The week before move-in", items: [
+        { id: "tl-g-week", name: "The week before move-in", items: [
           { id: "tl3-movein", label: "essential", warn: true, text: "Confirm your move-in time & logistics", note: "Move-in is Aug 23–24, 2026, hourly slots from 8 a.m. Arriving after your slot (or after the 24th)? Check in at the Langford front desk — it's staffed 24/7." },
           { id: "tl3-toolkit", label: "recommended", text: "Install your toolkit: VS Code, Git, terminal basics; update your laptop", note: "" },
           { id: "tl3-wifi", label: "recommended", warn: true, text: "Get your devices ready for campus Wi-Fi / IT", note: "" },
@@ -62,7 +62,7 @@ window.PAGES.timeline = {
           { id: "tl3-stock", label: "recommended", text: "Stock meds, snacks, and your water bottle", note: "" },
           { id: "tl3-rest", label: "optional", text: "Rest well; review your schedule and map the campus", note: "" }
         ]},
-        { id: "tl-g-first", name: "🔵 First month of classes", items: [
+        { id: "tl-g-first", name: "First month of classes", items: [
           { id: "tl4-syllabus", label: "essential", text: "Read every syllabus; put all deadlines into one calendar in week one", note: "" },
           { id: "tl4-office", label: "essential", text: "Go to office hours in weeks 1–2, before you 'need' to", note: "The most underused resource in college." },
           { id: "tl4-problemsets", label: "essential", text: "Start problem sets the day they're assigned", note: "They hide their difficulty until you're stuck." },

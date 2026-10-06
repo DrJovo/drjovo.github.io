@@ -18,7 +18,7 @@ window.PAGES.dorm = {
         { k: "callout", variant: "tip", title: "Borrow before you buy",
           html: "Langford's front desk is open <strong>24/7</strong> and lends out <strong>tools, kitchen equipment, sports gear, video games, and vacuums</strong> (and handles your mail &amp; packages). The hall also has a large communal kitchen, study spaces, a computer room, and laundry — so you can skip a lot of one-off purchases." },
         { k: "callout", variant: "info",
-          html: "Treat any influencer &ldquo;must-have&rdquo; list (lighted vanity mirror, jewelry box, Dyson Airwrap, luxury skincare, sunset lamps) as personal-taste extras — not freshman necessities. Those &ldquo;🛒 Shop&rdquo; links are usually affiliate upsells; buy on price and reviews, not the recommendation." }
+          html: "Treat any influencer &ldquo;must-have&rdquo; list (lighted vanity mirror, jewelry box, Dyson Airwrap, luxury skincare, sunset lamps) as personal-taste extras — not freshman necessities. Those &ldquo;Shop&rdquo; links are usually affiliate upsells; buy on price and reviews, not the recommendation." }
       ]
     },
     {

@@ -27,6 +27,7 @@
   var META = {}; // pageId -> {icon,label} from NAV
 
   function $(id) { return document.getElementById(id); }
+  function ic(name, size) { return window.Icons ? Icons.ic(name, size) : ""; }
   function cssEsc(s) { return String(s).replace(/"/g, '\\"'); }
   function isTyping(t) {
     return t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable);
@@ -42,17 +43,8 @@
 
     (window.NAV || []).forEach(function (g) { g.items.forEach(function (it) { META[it.id] = it; }); });
 
-    applyTheme(Store.getTheme()); // theme the gate too
-
-    /* optional password gate (see js/auth.js) before the app is built */
-    if (window.Auth) {
-      Auth.ensureSeed().then(function () {
-        if (Auth.isEnabled() && !Auth.isUnlocked()) Auth.showGate(startApp);
-        else startApp();
-      });
-    } else {
-      startApp();
-    }
+    applyTheme(Store.getTheme());
+    startApp();
   }
 
   function startApp() {
@@ -129,7 +121,7 @@
       grp.items.forEach(function (it) {
         var tracked = (window.TRACKED_PAGES || []).indexOf(it.id) >= 0;
         html += '<a class="nav-link" data-nav="' + it.id + '" href="#/' + it.id + '">'
-          + '<span class="nav-ico">' + it.icon + "</span>"
+          + '<span class="nav-ico">' + (window.Icons ? Icons.ic(it.icon, 18) : "") + "</span>"
           + '<span class="nav-label">' + it.label + "</span>"
           + (tracked ? '<span class="nav-badge" id="nav-badge-' + it.id + '">0/0</span>' : "")
         + "</a>";
@@ -159,8 +151,8 @@
     if (days === null) return { num: "—", unit: "set a date" };
     if (days > 1) return { num: String(days), unit: "days to move-in" };
     if (days === 1) return { num: "1", unit: "day to move-in" };
-    if (days === 0) return { num: "🎉", unit: "move-in is today!" };
-    return { num: "🎓", unit: "you've made it in" };
+    if (days === 0) return { num: "0", unit: "move-in is today!" };
+    return { num: "✓", unit: "you've made it in" };
   }
   function updateCountdown() {
     var moveIn = Store.getPref("moveIn", DEFAULT_MOVEIN);
@@ -180,7 +172,7 @@
     var hero = '<div class="hero">'
       + '<div class="hero-text">'
         + '<div class="page-eyebrow">Welcome back, ' + Render.esc(Store.getProfile("name", "Jonathan")) + "</div>"
-        + "<h1>Let's get you to Montana 🐾</h1>"
+        + "<h1>Let's get you to Montana</h1>"
         + '<div class="countdown"><span class="cd-num" id="cdNum">' + c.num + '</span><span class="cd-unit" id="cdUnit">' + c.unit + "</span></div>"
         + '<div class="countdown-meta">Move-in day: <strong id="cdSub">' + fmtDate(moveIn) + "</strong>"
           + ' &nbsp;·&nbsp; <input type="date" data-act="movein" value="' + moveIn + '" style="height:30px;padding:0 8px" aria-label="Set your move-in date" /></div>'
@@ -202,47 +194,50 @@
         + '<div class="item-note">' + Render.esc(p.note) + "</div></div>"
       + "</div>";
     }).join("");
-    var prioPanel = '<section class="panel"><div class="panel-head"><div class="ph-title">⭐ Top priorities</div>'
+    var prioPanel = '<section class="panel"><div class="panel-head"><div class="ph-title">Top priorities</div>'
       + '<div class="ph-meta muted" style="font-size:.82rem">If you only do a few things</div></div>'
       + '<div class="panel-body" style="padding:8px 12px">' + prio + "</div></section>";
 
     var cards = (window.TRACKED_PAGES || []).map(function (pid) {
-      var m = META[pid] || { icon: "•", label: pid };
+      var m = META[pid] || { icon: "", label: pid };
       var pr = Render.pageProgress(pid);
       return '<a class="stat-card" id="statcard-' + pid + '" href="#/' + pid + '">'
-        + '<div class="sc-top"><span class="sc-ico">' + m.icon + '</span><span class="sc-name">' + m.label + '</span>'
+        + '<div class="sc-top"><span class="sc-ico">' + ic(m.icon, 17) + '</span><span class="sc-name">' + m.label + '</span>'
         + '<span class="sc-frac" id="statfrac-' + pid + '">' + pr.done + " / " + pr.total + "</span></div>"
         + '<div class="progress"><i id="statbar-' + pid + '" style="width:' + pr.pct + '%"></i></div>'
       + "</a>";
     }).join("");
-    var cardsPanel = '<section class="panel"><div class="panel-head"><div class="ph-title">📊 Your progress</div></div>'
+    var cardsPanel = '<section class="panel"><div class="panel-head"><div class="ph-title">Your progress</div></div>'
       + '<div class="panel-body"><div class="grid grid-3">' + cards + "</div></div></section>";
 
     var qlinks = (window.QUICKLINKS || []).map(function (l) {
       return '<a class="quick-link" href="' + l.url + '" target="_blank" rel="noopener" title="' + Render.esc(l.note || "") + '">'
-        + '<span class="ql-ico">' + l.ico + "</span>" + Render.esc(l.label) + " ↗</a>";
+        + Render.esc(l.label) + '<span class="ql-ico">' + ic("external", 14) + "</span></a>";
     }).join("");
-    var linksPanel = '<section class="panel"><div class="panel-head"><div class="ph-title">🔗 Key portals</div>'
+    var linksPanel = '<section class="panel"><div class="panel-head"><div class="ph-title">Key portals</div>'
       + '<div class="ph-meta muted" style="font-size:.78rem">verify exact URLs on montana.edu</div></div>'
       + '<div class="panel-body"><div class="quick-links">' + qlinks + "</div></div></section>";
 
     var legendItems = Object.keys(window.LABELS).map(function (k) {
       return '<div class="legend-item">' + Render.badge(k) + '<span class="muted">' + window.LABELS[k].blurb + "</span></div>";
     }).join("");
-    var legendPanel = '<section class="panel"><div class="panel-head"><div class="ph-title">🏷️ How to read the labels</div></div>'
+    var legendPanel = '<section class="panel"><div class="panel-head"><div class="ph-title">How to read the labels</div></div>'
       + '<div class="panel-body"><div class="legend">' + legendItems + "</div>"
-      + Render.callout("info", "", "<strong>⚠️ marks anything time-sensitive or MSU-specific.</strong> Those dates and details come from research — confirm them on official Montana State pages before you rely on them. Everything you check off is saved locally in this browser; use Settings to back it up.")
+      + Render.callout("info", "", "The <strong>alert</strong> marker flags anything time-sensitive or MSU-specific. Those dates and details come from research — confirm them on official Montana State pages before you rely on them. Everything you check off is saved locally in this browser; use Settings to back it up.")
       + "</div></section>";
 
-    var housing = '<section class="panel placement-panel"><div class="panel-head"><div class="ph-title">🏠 Your housing</div>'
-      + '<div class="ph-meta"><a class="placement-link" href="https://www.montana.edu/housing/halls/langford.html" target="_blank" rel="noopener">Langford guide ↗</a></div></div>'
+    var hchip = function (k, key, def) {
+      return '<span class="cc-chip"><span class="cc-k">' + k + "</span>" + Render.esc(Store.getProfile(key, def)) + "</span>";
+    };
+    var housing = '<section class="panel placement-panel"><div class="panel-head"><div class="ph-title">Your housing</div>'
+      + '<div class="ph-meta"><a class="placement-link" href="https://www.montana.edu/housing/halls/langford.html" target="_blank" rel="noopener">Langford guide</a></div></div>'
       + '<div class="panel-body"><div class="placement-chips">'
-        + '<span class="cc-chip">🏛️ ' + Render.esc(Store.getProfile("hall", "Langford Hall")) + "</span>"
-        + '<span class="cc-chip">🚪 Room ' + Render.esc(Store.getProfile("room", "Lng 205-B")) + "</span>"
-        + '<span class="cc-chip">👥 ' + Render.esc(Store.getProfile("roomType", "Double") + " room") + "</span>"
-        + '<span class="cc-chip">🍽️ ' + Render.esc(Store.getProfile("mealPlan", "7-Day Blue meal plan")) + "</span>"
-        + '<span class="cc-chip">🎓 Engineering LLC hall</span>'
-        + '<span class="cc-chip">📍 Rendezvous Dining nearby</span>'
+        + hchip("Hall", "hall", "Langford Hall")
+        + hchip("Room", "room", "Lng 205-B")
+        + hchip("Type", "roomType", "Double")
+        + hchip("Meal plan", "mealPlan", "7-Day Blue meal plan")
+        + '<span class="cc-chip">Engineering LLC hall</span>'
+        + '<span class="cc-chip">Rendezvous Dining nearby</span>'
       + "</div></div></section>";
 
     return '<div class="page">' + hero + housing
@@ -290,7 +285,7 @@
       + "</span></label>";
   }
   function profilePanel(title, icon, inner, meta) {
-    return '<section class="panel"><div class="panel-head"><div class="ph-title">' + icon + " " + title + "</div>"
+    return '<section class="panel"><div class="panel-head"><div class="ph-title">' + title + "</div>"
       + (meta ? '<div class="ph-meta muted" style="font-size:.75rem">' + meta + "</div>" : "")
       + '</div><div class="panel-body">' + inner + "</div></section>";
   }
@@ -303,10 +298,10 @@
     var ov = Render.overallProgress();
     var certsT = Store.countOn("targeting", collectCertIds());
     var toolsC = Store.countOn("claimed", collectDiscountIds());
-    var initial = (name.trim().charAt(0) || "🐾").toUpperCase();
+    var avatarInner = name.trim() ? Render.esc(name.trim().charAt(0).toUpperCase()) : ic("user", 30);
 
     var header = '<div class="pf-header">'
-      + '<div class="pf-avatar">' + Render.esc(initial) + "</div>"
+      + '<div class="pf-avatar">' + avatarInner + "</div>"
       + '<div class="pf-id"><h1 class="pf-name">' + Render.esc(name || "Your name") + "</h1>"
         + '<div class="pf-sub">' + Render.esc(Store.getProfile("major", "Computer Engineering")) + " · Montana State · " + Render.esc(Store.getProfile("term", "Fall 2026")) + "</div></div>"
     + "</div>";
@@ -360,7 +355,7 @@
         + '<div class="pf-link-urlrow">'
           + '<input class="pf-input pf-link-url" id="' + uid + '" value="' + Render.esc(l.url) + '" placeholder="https://…" data-act="pflink" data-id="' + l.id + '" data-field="url" autocomplete="off" />'
           + '<button class="copy-btn" data-act="copy" data-copy-sel="#' + uid + '" title="Copy link" aria-label="Copy link">' + COPY_ICON + '</button>'
-          + '<button class="icon-btn" data-act="del-plink" data-id="' + l.id + '" title="Delete link" aria-label="Delete link">🗑️</button>'
+          + '<button class="icon-btn" data-act="del-plink" data-id="' + l.id + '" title="Delete link" aria-label="Delete link">' + ic("trash", 15) + '</button>'
         + "</div>"
       + "</div>";
     }).join("");
@@ -369,7 +364,7 @@
       + pfField("portfolio", "Portfolio", { def: "https://drjovo.github.io", copy: true })
     + "</div>"
       + (linkRows ? '<div class="pf-links-list">' + linkRows + "</div>" : "")
-      + '<button class="btn btn-sm pf-add-link" data-act="add-plink">➕ Add a link</button>';
+      + '<button class="btn btn-sm pf-add-link" data-act="add-plink">Add a link</button>';
 
     var bio = '<textarea class="pf-bio" data-autogrow data-act="profile" data-key="bio" placeholder="A line or two about you — your goals, what you\'re excited about, anything worth noting.">'
       + Render.esc(Store.getProfile("bio", DEFAULT_BIO)) + "</textarea>";
@@ -379,20 +374,20 @@
 
     return '<div class="page">'
       + '<header class="page-head"><div class="page-eyebrow">Getting Started</div>'
-        + '<h1 class="page-title"><span class="pt-ico">🪪</span>Profile</h1>'
+        + '<h1 class="page-title">Profile</h1>'
         + '<p class="page-sub">Your personal info in one place. Everything saves automatically and rides along in your Settings backup.</p></header>'
       + header
       + stats
       + '<div class="grid grid-2" style="align-items:start">'
-        + "<div>" + profilePanel("Identity", "🪪", identity) + "</div>"
-        + "<div>" + profilePanel("Academic", "🎓", academic) + profilePanel("Housing", "🏠", housingInner) + "</div>"
+        + "<div>" + profilePanel("Identity", "", identity) + "</div>"
+        + "<div>" + profilePanel("Academic", "", academic) + profilePanel("Housing", "", housingInner) + "</div>"
       + "</div>"
       + '<div class="grid grid-2" style="align-items:start">'
-        + "<div>" + profilePanel("Links", "🔗", links) + "</div>"
-        + "<div>" + profilePanel("About me", "📝", bio) + "</div>"
+        + "<div>" + profilePanel("Links", "", links) + "</div>"
+        + "<div>" + profilePanel("About me", "", bio) + "</div>"
       + "</div>"
-      + profilePanel("Custom notes", "✨", customInner)
-      + profilePanel("Contacts", "📇", contactsInner)
+      + profilePanel("Custom notes", "", customInner)
+      + profilePanel("Contacts", "", contactsInner)
     + "</div>";
   }
 
@@ -408,7 +403,7 @@
     if (key === "netid") updateDerivedEmail(val);
     if (key === "name") {
       var nm = document.querySelector(".pf-name"); if (nm) nm.textContent = val || "Your name";
-      var av = document.querySelector(".pf-avatar"); if (av) av.textContent = (val.trim().charAt(0) || "🐾").toUpperCase();
+      var av = document.querySelector(".pf-avatar"); if (av) av.innerHTML = val.trim() ? Render.esc(val.trim().charAt(0).toUpperCase()) : ic("user", 30);
     }
   }
   function saveProfileCustom(el) {
@@ -532,7 +527,7 @@
       : '<span class="pf-label pf-link-locked pf-contact-header" data-act="edit-pcontact" data-id="' + c.id + '" role="button" tabindex="0" title="Click to rename">' + Render.esc(c.name) + "</span>";
     return '<div class="pf-contact" data-pcid="' + c.id + '">'
       + '<div class="pf-contact-namerow">' + nameHTML
-        + '<button class="icon-btn" data-act="del-pcontact" data-id="' + c.id + '" title="Delete contact" aria-label="Delete contact">🗑️</button></div>'
+        + '<button class="icon-btn" data-act="del-pcontact" data-id="' + c.id + '" title="Delete contact" aria-label="Delete contact">' + ic("trash", 15) + '</button></div>'
       + '<div class="pf-contact-grid">'
         + pcField(c.id, "phone", "Phone", c.phone, { copy: true })
         + pcField(c.id, "email", "Email", c.email, { copy: true })
@@ -544,7 +539,7 @@
     return '<div class="pf-custom-row" data-pfid="' + f.id + '">'
       + '<input class="pf-input pf-custom-label" value="' + Render.esc(f.label) + '" placeholder="Label" data-act="pfcustom" data-id="' + f.id + '" data-field="label" autocomplete="off" />'
       + '<input class="pf-input pf-custom-value" value="' + Render.esc(f.value) + '" placeholder="Value" data-act="pfcustom" data-id="' + f.id + '" data-field="value" autocomplete="off" />'
-      + '<button class="icon-btn" data-act="del-pfield" data-id="' + f.id + '" title="Delete field" aria-label="Delete field">🗑️</button>'
+      + '<button class="icon-btn" data-act="del-pfield" data-id="' + f.id + '" title="Delete field" aria-label="Delete field">' + ic("trash", 15) + '</button>'
     + "</div>";
   }
   function renderCategorized(kind) {
@@ -552,7 +547,7 @@
     var cats = s.getCats();
     var items = s.getItems();
     var renderItem = kind === "contacts" ? renderContactItem : renderCustomItem;
-    var addLabel = kind === "contacts" ? "➕ Add a contact" : "➕ Add a field";
+    var addLabel = kind === "contacts" ? "Add a contact" : "Add a field";
     var emptyMsg = kind === "contacts" ? "No contacts here yet." : "No fields here yet.";
 
     var byCat = {};
@@ -567,15 +562,15 @@
       if (editing) {
         head = '<div class="pf-cat-head pf-cat-head-edit">'
           + '<input class="pf-input pf-cat-name" value="' + Render.esc(cat.name) + '" placeholder="Category name — press Enter" data-act="pcatname" data-kind="' + kind + '" data-id="' + cat.id + '" autocomplete="off" />'
-          + '<button class="icon-btn" data-act="cat-del" data-kind="' + kind + '" data-id="' + cat.id + '" title="Remove category" aria-label="Remove category">🗑️</button>'
+          + '<button class="icon-btn" data-act="cat-del" data-kind="' + kind + '" data-id="' + cat.id + '" title="Remove category" aria-label="Remove category">' + ic("trash", 15) + '</button>'
         + "</div>";
       } else {
         head = '<div class="pf-cat-head' + (collapsed ? " collapsed" : "") + '" data-act="collapse" data-id="' + cat.id + '" role="button" tabindex="0" aria-expanded="' + (!collapsed) + '">'
           + '<span class="cat-caret">▾</span>'
           + '<span class="pf-cat-title">' + Render.esc(cat.name) + "</span>"
           + '<span class="cat-count">' + list.length + "</span>"
-          + '<button class="icon-btn cat-mini" data-act="cat-rename" data-id="' + cat.id + '" title="Rename category" aria-label="Rename category">✏️</button>'
-          + '<button class="icon-btn cat-mini" data-act="cat-del" data-kind="' + kind + '" data-id="' + cat.id + '" title="Delete category" aria-label="Delete category">🗑️</button>'
+          + '<button class="icon-btn cat-mini" data-act="cat-rename" data-id="' + cat.id + '" title="Rename category" aria-label="Rename category">' + ic("pencil", 14) + '</button>'
+          + '<button class="icon-btn cat-mini" data-act="cat-del" data-kind="' + kind + '" data-id="' + cat.id + '" title="Delete category" aria-label="Delete category">' + ic("trash", 15) + '</button>'
         + "</div>";
       }
       html += '<div class="pf-cat" data-catid="' + cat.id + '">' + head
@@ -599,7 +594,7 @@
       ? cats.map(function (c) { return '<button class="pf-cat-opt" data-act="add-item-to" data-kind="' + kind + '" data-cat="' + c.id + '">' + Render.esc(c.name || "(unnamed)") + "</button>"; }).join("")
       : '<div class="pf-cat-dropdown-empty">Add a category first.</div>';
     html += '<div class="pf-cat-actions">'
-      + '<button class="btn btn-sm" data-act="add-cat" data-kind="' + kind + '">🗂️ Add category</button>'
+      + '<button class="btn btn-sm" data-act="add-cat" data-kind="' + kind + '">Add category</button>'
       + '<div class="pf-add-wrap"><button class="btn btn-sm" data-act="add-item-menu" data-kind="' + kind + '">' + addLabel + "</button>"
         + '<div class="pf-cat-dropdown" id="dropdown-' + kind + '" hidden><div class="pf-cat-dropdown-title">Add to which category?</div>' + opts + "</div></div>"
     + "</div>";
@@ -722,32 +717,6 @@
   }
   function closeModal() { var m = $("appModal"); if (m) m.remove(); }
 
-  /* ---------------- password protection (see js/auth.js) ---------------- */
-  function authToggle(on) {
-    if (!window.Auth) return;
-    Auth.setEnabled(on).then(function () { refresh(); toast(on ? "Password protection is on" : "Password protection is off"); });
-  }
-  function authChange() {
-    if (!window.Auth) return;
-    var cur = ($("authCurrent") || {}).value || "";
-    var nw = ($("authNew") || {}).value || "";
-    if (!nw.trim()) { toast("Enter a new password"); return; }
-    Auth.verify(cur).then(function (ok) {
-      if (!ok) { toast("Current password is incorrect"); return; }
-      Auth.changePassword(nw).then(function () {
-        if ($("authCurrent")) $("authCurrent").value = "";
-        if ($("authNew")) $("authNew").value = "";
-        toast("Password changed on this device ✓");
-      });
-    });
-  }
-  function authLock() {
-    if (!window.Auth) return;
-    Auth.lock();
-    toast("Locked");
-    location.reload();
-  }
-
   function copyFromSelector(btn) {
     var sel = btn.getAttribute("data-copy-sel");
     var node = sel ? document.querySelector(sel) : null;
@@ -794,36 +763,24 @@
 
     return '<div class="page">'
       + '<header class="page-head"><div class="page-eyebrow">Getting Started</div>'
-      + '<h1 class="page-title"><span class="pt-ico">⚙️</span>Settings</h1>'
+      + '<h1 class="page-title">Settings</h1>'
       + '<p class="page-sub">Personalize the app and manage your saved data. Everything lives in this browser only.</p></header>'
 
-      + '<section class="panel"><div class="panel-head"><div class="ph-title">🎨 Appearance</div></div>'
+      + '<section class="panel"><div class="panel-head"><div class="ph-title">Appearance</div></div>'
       + '<div class="panel-body"><p class="muted" style="margin-bottom:10px">Pick a theme — your choice is remembered.</p>'
       + '<div class="theme-list" id="themeGrid" style="max-width:520px">' + themeOptions() + "</div></div></section>"
 
-      + '<section class="panel"><div class="panel-head"><div class="ph-title">🗓️ Move-in date</div></div>'
+      + '<section class="panel"><div class="panel-head"><div class="ph-title">Move-in date</div></div>'
       + '<div class="panel-body"><div class="setting-row"><div><div class="sr-label">Your move-in day</div>'
       + '<div class="sr-desc">Drives the countdown on the dashboard. Confirm the real date with MSU Residence Life.</div></div>'
       + '<div class="sr-control"><input type="date" data-act="movein" value="' + moveIn + '" /></div></div></div></section>'
 
-      + '<section class="panel"><div class="panel-head"><div class="ph-title">🔒 Privacy &amp; access</div></div>'
-      + '<div class="panel-body">'
-      + '<div class="setting-row"><div><div class="sr-label">Password protection</div>'
-      + '<div class="sr-desc">Require a password to open the site — meant for when it\'s hosted on GitHub Pages.</div></div>'
-      + '<div class="sr-control"><label class="claim-toggle"><input type="checkbox" data-act="auth-toggle"' + ((window.Auth && Auth.isEnabled()) ? " checked" : "") + ' /> ' + ((window.Auth && Auth.isEnabled()) ? "On" : "Off") + '</label></div></div>'
-      + '<div class="setting-row"><div><div class="sr-label">Change password</div><div class="sr-desc">Enter your current password, then a new one. Updates this device.</div></div>'
-      + '<div class="sr-control auth-change-fields"><input type="password" id="authCurrent" placeholder="Current" autocomplete="off" /><input type="password" id="authNew" placeholder="New" autocomplete="off" /><button class="btn btn-sm" data-act="auth-change">Change</button></div></div>'
-      + '<div class="setting-row"><div><div class="sr-label">Lock now</div><div class="sr-desc">Require the password again on the next visit.</div></div>'
-      + '<div class="sr-control"><button class="btn btn-sm" data-act="auth-lock">🔒 Lock</button></div></div>'
-      + Render.callout("warn", "How secure is this, really?", "This is a client-side gate for a static site — it keeps casual visitors out, but a technical person can bypass it, and a <strong>public</strong> GitHub repo exposes the source either way. The shared password that ships with your deployed site is <code>DEFAULT_PW</code> in <code>js/auth.js</code> (currently <strong>admin</strong>) — change it there before you push to set what you hand out. Changing it here only affects this device. For real privacy, use a private repo plus a host with real authentication.")
-      + "</div></section>"
-
-      + '<section class="panel"><div class="panel-head"><div class="ph-title">💾 Your data</div></div>'
+      + '<section class="panel"><div class="panel-head"><div class="ph-title">Your data</div></div>'
       + '<div class="panel-body">'
       + '<div class="setting-row"><div><div class="sr-label">Back up</div><div class="sr-desc">Download everything (checkmarks, notes, custom items, claimed tools) as a file.</div></div>'
-      + '<div class="sr-control"><button class="btn btn-primary" data-act="export">⬇️ Export backup</button></div></div>'
+      + '<div class="sr-control"><button class="btn btn-primary" data-act="export">Export backup</button></div></div>'
       + '<div class="setting-row"><div><div class="sr-label">Restore</div><div class="sr-desc">Load a backup file you exported earlier (replaces current data).</div></div>'
-      + '<div class="sr-control"><button class="btn" data-act="import-trigger">⬆️ Import backup</button>'
+      + '<div class="sr-control"><button class="btn" data-act="import-trigger">Import backup</button>'
       + '<input type="file" id="importFile" accept="application/json,.json" data-act="import-file" hidden /></div></div>'
       + '<div class="setting-row"><div><div class="sr-label">Reset progress</div><div class="sr-desc">Uncheck every box and clear stars & claimed tools. Keeps your notes and custom items.</div></div>'
       + '<div class="sr-control"><button class="btn btn-danger" data-act="reset-progress">Reset progress</button></div></div>'
@@ -831,7 +788,7 @@
       + '<div class="sr-control"><button class="btn btn-danger" data-act="reset-all">Erase all data</button></div></div>'
       + "</div></section>"
 
-      + '<section class="panel"><div class="panel-head"><div class="ph-title">ℹ️ About</div></div>'
+      + '<section class="panel"><div class="panel-head"><div class="ph-title">About</div></div>'
       + '<div class="panel-body prose"><p><strong>Bobcat Launchpad</strong> — a personal prep hub built for Jonathan: incoming Montana State Computer Engineering (Fall 2026), Langford Hall, Room Lng 205-B. Built from your research files and tailored to your hall and goals.</p>'
       + "<p class=\"muted\">You've checked off <strong>" + checkedCount + "</strong> tracked items so far (" + ov.pct + "% overall). Storage is " + (Store.available ? "working ✓" : "<span style=\"color:var(--c-essential)\">blocked ✗</span>") + ". Data is stored only in this browser on this device — export a backup before clearing your browser data or switching computers.</p>"
       + "</div></section>"
@@ -1003,8 +960,6 @@
         else if (act === "add-item-menu") addItemMenu(el.getAttribute("data-kind"));
         else if (act === "add-item-to") addItemToCategory(el.getAttribute("data-kind"), el.getAttribute("data-cat"));
         else if (act === "modal-cancel") closeModal();
-        else if (act === "auth-change") authChange();
-        else if (act === "auth-lock") authLock();
       }
       /* close theme popover on outside click */
       if (!themePop.hidden && !themePop.contains(ev.target) && ev.target !== themeBtn) themePop.hidden = true;
@@ -1036,8 +991,6 @@
       } else if (act === "import-file") {
         handleImportFile(el.files && el.files[0]);
         el.value = "";
-      } else if (act === "auth-toggle") {
-        authToggle(el.checked);
       }
     });
 

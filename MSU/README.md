@@ -25,7 +25,7 @@ python -m http.server 8000
 ## ✨ Features
 
 - **Persistent checklists** — tick items and they stay ticked. Per-list progress bars + an overall completion ring on the dashboard.
-- **7 themes** — Light, Dark, Midnight, Bobcat (MSU blue & gold), Forest, Sepia, and a High-Contrast mode. Click 🎨 in the header.
+- **7 themes** — Light, Dark, Midnight, Bobcat (MSU blue & gold), Forest, Sepia, and a High-Contrast mode. Click the theme icon in the header.
 - **Global search** (`/`) — jump to any item, resource, tool, or section instantly.
 - **Filters & focus** — filter any checklist by Essential / Recommended / Optional / Skip, hide completed items, and collapse sections.
 - **Make it yours** — add your own custom checklist items, star priorities, and jot notes on every list.
@@ -53,14 +53,6 @@ python -m http.server 8000
 
 ---
 
-## 🔒 Password protection (for GitHub Pages)
-
-The site can require a password before it opens — handy when hosting it publicly (e.g., `drjovo.github.io/MSU`). It's **on by default** with the password **`admin`**. Manage it in **Settings → Privacy & access** (turn on/off, change the password, or "Lock now").
-
-**Set the shared password before you deploy:** open `js/auth.js` and change the `DEFAULT_PW` constant (currently `"admin"`) to whatever you'll hand out, then push. That's the password every visitor's browser uses by default. (Changing it inside Settings only affects the device you're on.)
-
-> **Honest heads-up:** this is a *client-side deterrent*, not real security. A technical visitor can bypass a static-site gate, and a **public** GitHub repo exposes the source regardless. The password is stored only as a salted PBKDF2-SHA256 hash (never plaintext). For genuine privacy, use a **private** repo plus a host with real authentication (Cloudflare Access, Netlify password protection, etc.).
-
 ## ⚠️ A note on dates & links
 
 The research that built this couldn't browse live MSU pages, so anything marked **⚠️** (specific dates, exact URLs, the current LMS, your advisor's name) should be **confirmed on official Montana State pages** — `montana.edu`, `montana.edu/reslife`, `catalog.montana.edu`, `coe.montana.edu` — before you rely on it.
@@ -74,6 +66,6 @@ Pure HTML/CSS/JavaScript — **no build step, no dependencies, no framework**. I
 ```
 index.html
 css/   variables.css (themes) · base.css · layout.css · components.css
-js/    store.js · render.js · search.js · app.js
+js/    store.js · icons.js · render.js · search.js · app.js
 js/data/  config.js + one file per content area
 ```

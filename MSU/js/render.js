@@ -7,7 +7,7 @@
   "use strict";
 
   var LABEL_ORDER = ["essential", "recommended", "optional", "skip"];
-  var CALLOUT_ICON = { warn: "⚠️", tip: "💡", info: "ℹ️", rule: "📌" };
+  function ic(name, size) { return (window.Icons ? Icons.ic(name, size) : ""); }
 
   /* sections of the page currently on screen — used for live progress updates */
   var currentSections = [];
@@ -73,14 +73,14 @@
         + '<div class="item-top">'
           + '<span class="item-text">' + text + "</span>"
           + (!isCustom && item.label ? badge(item.label) : "")
-          + (item.warn ? '<span class="warn-flag" title="Time-sensitive or MSU-specific — verify on official pages">⚠️</span>' : "")
+          + (item.warn ? '<span class="warn-flag" title="Time-sensitive or MSU-specific — verify on official pages">' + ic("alert", 14) + "</span>" : "")
           + (isCustom ? '<span class="tag-custom">added</span>' : "")
         + "</div>"
         + (item.note ? '<div class="item-note">' + item.note + "</div>" : "")
       + "</div>"
       + '<div class="item-actions">'
         + '<button class="icon-btn star-btn' + (starred ? " starred" : "") + '" data-act="star" data-id="' + esc(item.id) + '" title="Mark as a priority" aria-label="Mark as a priority">' + (starred ? "★" : "☆") + "</button>"
-        + (isCustom ? '<button class="icon-btn" data-act="del-custom" data-list="' + esc(listId) + '" data-id="' + esc(item.id) + '" title="Delete this item" aria-label="Delete item">🗑️</button>' : "")
+        + (isCustom ? '<button class="icon-btn" data-act="del-custom" data-list="' + esc(listId) + '" data-id="' + esc(item.id) + '" title="Delete this item" aria-label="Delete item">' + ic("trash", 15) + "</button>" : "")
       + "</div>"
     + "</div>";
   }
@@ -126,7 +126,7 @@
     if (customs.length) {
       groupsHTML += '<div class="checklist-group">'
         + '<div class="group-head" data-act="collapse" data-id="' + esc(listId) + '-custom" role="button" tabindex="0">'
-          + '<span class="gh-caret">▾</span><span class="gh-title">➕ Your additions</span>'
+          + '<span class="gh-caret">▾</span><span class="gh-title">Your additions</span>'
         + "</div>"
         + '<div class="group-items">' + customs.map(function (it) { return checkItem(it, listId, true); }).join("") + "</div>"
       + "</div>";
@@ -143,7 +143,7 @@
     var tools = '<div class="section-tools">'
       + '<div class="filter-chips">' + chips + "</div>"
       + '<button class="chip" data-act="hide-completed" data-list="' + esc(listId) + '" style="margin-left:auto">'
-        + (hideDone ? "👁️ Show completed" : "🙈 Hide completed") + "</button>"
+        + (hideDone ? "Show completed" : "Hide completed") + "</button>"
     + "</div>";
 
     var addRow = section.allowAdd
@@ -153,13 +153,13 @@
 
     var noteId = "note_" + listId;
     var noteVal = Store.getNote(noteId);
-    var notes = '<div class="notes-box"><label>📝 My notes for this list</label>'
+    var notes = '<div class="notes-box"><label>My notes for this list</label>'
       + '<textarea data-autogrow data-act="note" data-id="' + esc(noteId) + '" placeholder="Jot anything — sizes, prices, links, reminders…">' + esc(noteVal) + "</textarea>"
       + '<div class="notes-saved" data-saved="' + esc(noteId) + '"></div></div>';
 
     return '<section class="panel" id="sec-' + esc(listId) + '">'
       + '<div class="panel-head">'
-        + '<div class="ph-title">' + (section.icon ? section.icon + " " : "") + esc(section.title) + "</div>"
+        + '<div class="ph-title">' + esc(section.title) + "</div>"
         + '<div class="ph-meta">'
           + '<span class="progress-label" id="proglabel-' + esc(listId) + '">' + done + " / " + total + "</span>"
           + '<div class="progress' + (p === 100 && total ? " complete" : "") + '" style="width:120px" id="progwrap-' + esc(listId) + '"><i id="prog-' + esc(listId) + '" style="width:' + p + '%"></i></div>'
@@ -167,7 +167,7 @@
       + "</div>"
       + tools
       + (section.intro ? '<div class="panel-intro">' + section.intro + "</div>" : "")
-      + '<div class="panel-body" style="padding-top:6px">' + (groupsHTML || '<div class="empty-state"><span class="es-ico">🫧</span>Nothing matches your filters.</div>') + addRow + "</div>"
+      + '<div class="panel-body" style="padding-top:6px">' + (groupsHTML || '<div class="empty-state">Nothing matches your filters.</div>') + addRow + "</div>"
       + notes
     + "</section>";
   }
@@ -176,7 +176,7 @@
   function block(b) {
     switch (b.k) {
       case "p": return "<p>" + b.html + "</p>";
-      case "subhead": return '<div class="subhead">' + (b.ico ? b.ico + " " : "") + esc(b.text) + "</div>";
+      case "subhead": return '<div class="subhead">' + esc(b.text) + "</div>";
       case "ul": return "<ul>" + b.items.map(function (i) { return "<li>" + i + "</li>"; }).join("") + "</ul>";
       case "ol": return "<ol>" + b.items.map(function (i) { return "<li>" + i + "</li>"; }).join("") + "</ol>";
       case "callout": return callout(b.variant, b.title, b.html);
@@ -185,12 +185,12 @@
     }
   }
   function callout(variant, title, html) {
-    return '<div class="callout ' + variant + '"><span class="co-ico">' + (CALLOUT_ICON[variant] || "•") + "</span>"
+    return '<div class="callout ' + variant + '">'
       + '<div class="co-body">' + (title ? '<div class="co-title">' + esc(title) + "</div>" : "") + html + "</div></div>";
   }
   function linkCard(item) {
     return '<a class="link-card" href="' + esc(item.url) + '" target="_blank" rel="noopener">'
-      + '<span class="lc-arrow">↗</span>'
+      + '<span class="lc-arrow">' + ic("external", 15) + "</span>"
       + '<span class="lc-name">' + esc(item.name) + (item.free ? ' <span class="free-tag">FREE</span>' : "") + "</span>"
       + '<span class="lc-host">' + esc(host(item.url)) + "</span>"
       + (item.desc ? '<span class="lc-desc">' + esc(item.desc) + "</span>" : "")
@@ -199,7 +199,7 @@
   function prose(section) {
     var headHTML = section.hideTitle
       ? ""
-      : '<div class="panel-head"><div class="ph-title">' + (section.icon ? section.icon + " " : "") + esc(section.title) + "</div></div>";
+      : '<div class="panel-head"><div class="ph-title">' + esc(section.title) + "</div></div>";
     return '<section class="panel" id="sec-' + esc(section.id) + '">'
       + headHTML
       + '<div class="panel-body prose">' + section.blocks.map(block).join("") + "</div>"
@@ -215,7 +215,7 @@
       body += '<div class="link-grid">' + g.items.map(linkCard).join("") + "</div>";
     });
     return '<section class="panel" id="sec-' + esc(section.id) + '">'
-      + '<div class="panel-head"><div class="ph-title">' + (section.icon ? section.icon + " " : "") + esc(section.title) + "</div></div>"
+      + '<div class="panel-head"><div class="ph-title">' + esc(section.title) + "</div></div>"
       + '<div class="panel-body">' + (section.intro ? '<p class="muted" style="margin-bottom:4px">' + esc(section.intro) + "</p>" : "") + body + "</div>"
     + "</section>";
   }
@@ -241,7 +241,7 @@
     var ids = section.items.map(function (i) { return i.id; });
     var claimed = Store.countOn("claimed", ids);
     return '<section class="panel" id="sec-' + esc(section.id) + '">'
-      + '<div class="panel-head"><div class="ph-title">' + (section.icon ? section.icon + " " : "") + esc(section.title) + "</div>"
+      + '<div class="panel-head"><div class="ph-title">' + esc(section.title) + "</div>"
         + '<div class="ph-meta"><span class="progress-label" id="claimcount-' + esc(section.id) + '">' + claimed + " / " + ids.length + " claimed</span></div></div>"
       + (section.intro ? '<div class="panel-intro">' + esc(section.intro) + "</div>" : "")
       + '<div class="panel-body"><div class="grid grid-2">' + section.items.map(toolCard).join("") + "</div></div>"
@@ -255,7 +255,7 @@
     if (s >= 5) return "mid";
     return "low";
   }
-  function certChip(ico, text) { return '<span class="cc-chip">' + ico + " " + esc(text) + "</span>"; }
+  function certChip(ico, text) { return '<span class="cc-chip">' + esc(text) + "</span>"; }
   function certCard(item) {
     var head, foot, meta = "";
     if (item.earned) {
@@ -301,7 +301,7 @@
       body += '<div class="grid grid-2">' + g.items.map(certCard).join("") + "</div>";
     });
     return '<section class="panel" id="sec-' + esc(section.id) + '">'
-      + '<div class="panel-head"><div class="ph-title">' + (section.icon ? section.icon + " " : "") + esc(section.title) + "</div>"
+      + '<div class="panel-head"><div class="ph-title">' + esc(section.title) + "</div>"
         + '<div class="ph-meta"><span class="progress-label" id="trackcount-' + esc(section.id) + '">' + n + " / " + ids.length + " targeting</span></div></div>"
       + (section.intro ? '<div class="panel-intro">' + esc(section.intro) + "</div>" : "")
       + '<div class="panel-body">' + body + "</div>"
@@ -312,7 +312,7 @@
   function pageHead(page) {
     return '<header class="page-head">'
       + '<div class="page-eyebrow">' + esc(navGroupFor(page.id)) + "</div>"
-      + '<h1 class="page-title"><span class="pt-ico">' + (page.icon || "") + "</span>" + esc(page.title) + "</h1>"
+      + '<h1 class="page-title">' + esc(page.title) + "</h1>"
       + (page.subtitle ? '<p class="page-sub">' + esc(page.subtitle) + "</p>" : "")
     + "</header>";
   }
@@ -327,7 +327,7 @@
   function renderPage(pageId) {
     currentSections = [];
     var page = window.PAGES[pageId];
-    if (!page) return '<div class="empty-state"><span class="es-ico">🤔</span>Page not found.</div>';
+    if (!page) return '<div class="empty-state">Page not found.</div>';
     var html = '<div class="page">' + pageHead(page);
     (page.sections || []).forEach(function (s) {
       if (s.type === "checklist") html += checklist(s);

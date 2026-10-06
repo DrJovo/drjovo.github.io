@@ -101,7 +101,6 @@
       }
       results.innerHTML = current.map(function (e, i) {
         return '<a class="search-result" data-i="' + i + '">'
-          + '<span class="sr-ico">' + (e.icon || "•") + "</span>"
           + '<span class="sr-main"><span class="sr-title">' + highlight(e.title, q.trim()) + "</span>"
           + '<span class="sr-page">' + Render.esc(e.pageTitle) + (e.sub ? " · " + Render.esc(e.sub.slice(0, 60)) : "") + "</span></span>"
         + "</a>";

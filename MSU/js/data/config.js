@@ -15,11 +15,11 @@ window.LABELS = {
 
 /* Selectable appearance themes (id must match css/variables.css) */
 window.THEMES = [
-  { id: "light",    name: "Light",    swatch: ["#ffffff", "#2563eb"] },
-  { id: "dark",     name: "Dark",     swatch: ["#171e27", "#5b9aff"] },
-  { id: "midnight", name: "Midnight", swatch: ["#0d1424", "#38bdf8"] },
+  { id: "light",    name: "Light",    swatch: ["#ffffff", "#3d5a80"] },
+  { id: "dark",     name: "Dark",     swatch: ["#171e27", "#86a6c9"] },
+  { id: "midnight", name: "Midnight", swatch: ["#0d1424", "#6fa4c4"] },
   { id: "bobcat",   name: "Bobcat",   swatch: ["#00224d", "#bda35a"] },
-  { id: "forest",   name: "Forest",   swatch: ["#13201a", "#4ade80"] },
+  { id: "forest",   name: "Forest",   swatch: ["#13201a", "#74b892"] },
   { id: "sepia",    name: "Sepia",    swatch: ["#faf3e2", "#9a5b27"] },
   { id: "contrast", name: "Contrast", swatch: ["#000000", "#ffd400"] }
 ];
@@ -27,26 +27,26 @@ window.THEMES = [
 /* Sidebar navigation. Labels/icons live here so nav is independent of page load order. */
 window.NAV = [
   { group: "Getting Started", items: [
-    { id: "dashboard", label: "Dashboard", icon: "🏠" },
-    { id: "profile",   label: "Profile",   icon: "🪪" }
+    { id: "dashboard", label: "Dashboard", icon: "home" },
+    { id: "profile",   label: "Profile",   icon: "user" }
   ]},
   { group: "Shopping & Packing", items: [
-    { id: "dorm",     label: "Dorm Essentials",   icon: "🛏️" },
-    { id: "supplies", label: "School Supplies",    icon: "✏️" },
-    { id: "tech",     label: "Tech & CompE Gear",  icon: "💻" },
-    { id: "clothing", label: "Clothing & Weather", icon: "🧥" }
+    { id: "dorm",     label: "Dorm Essentials",   icon: "bed" },
+    { id: "supplies", label: "School Supplies",    icon: "pencil" },
+    { id: "tech",     label: "Tech & CompE Gear",  icon: "laptop" },
+    { id: "clothing", label: "Clothing & Weather", icon: "shirt" }
   ]},
   { group: "Preparation", items: [
-    { id: "academics",  label: "Academic Prep",  icon: "📐" },
-    { id: "onboarding", label: "MSU Onboarding", icon: "🎟️" },
-    { id: "timeline",   label: "Timeline & Plan", icon: "🗓️" },
-    { id: "certs",      label: "Certifications", icon: "📜" }
+    { id: "academics",  label: "Academic Prep",  icon: "cap" },
+    { id: "onboarding", label: "MSU Onboarding", icon: "clipboard" },
+    { id: "timeline",   label: "Timeline & Plan", icon: "calendar" },
+    { id: "certs",      label: "Certifications", icon: "award" }
   ]},
   { group: "Resources & Life", items: [
-    { id: "discounts", label: "Student Discounts", icon: "🎁" },
-    { id: "finances",  label: "MSU Finances",      icon: "💵" },
-    { id: "resources", label: "Online Resources",  icon: "🔗" },
-    { id: "life",      label: "Life Skills",       icon: "🌱" }
+    { id: "discounts", label: "Student Discounts", icon: "tag" },
+    { id: "finances",  label: "MSU Finances",      icon: "wallet" },
+    { id: "resources", label: "Online Resources",  icon: "link" },
+    { id: "life",      label: "Life Skills",       icon: "leaf" }
   ]}
 ];
 

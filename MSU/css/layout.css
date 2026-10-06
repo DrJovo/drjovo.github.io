@@ -13,8 +13,8 @@
   gap: 14px;
   padding: 0 16px;
   background: var(--header-bg);
-  backdrop-filter: saturate(160%) blur(10px);
-  -webkit-backdrop-filter: saturate(160%) blur(10px);
+  backdrop-filter: saturate(120%) blur(10px);
+  -webkit-backdrop-filter: saturate(120%) blur(10px);
   border-bottom: 1px solid var(--border);
 }
 
